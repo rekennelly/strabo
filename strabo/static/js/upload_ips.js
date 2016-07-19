@@ -48,4 +48,6 @@ $(document).ready(function(){
     map_message = $("#map-form-issue");
     title_message = $("#title-form-issue");
 });
-$("#1").on
+$("#1").click(function(){
+
+})
