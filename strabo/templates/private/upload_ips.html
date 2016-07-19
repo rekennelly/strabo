@@ -85,7 +85,7 @@
           </div>
 
           <br><br>
-
+        <!--
           <table class="table-bordered" margin="10px">
             <tr>
               <th></th>
@@ -106,7 +106,46 @@
 
             {{ render_table(taken_images,True) }}
             {{ render_table(free_images,False) }}
-          </table>
+        </table>-->
+        <button id="1"></button>
+            <legend>Upload a New Image</legend>
+
+            <div class="upload-wrapper">
+              <input type="file" id="img-input" name="file" {% if not image.filename %} required {% endif %}>
+              <br>
+              <img id="img-preview" src={% if image.filename %} "{{THUMB_DIR_RELPATH}}{{image.filename}}" {% else %} "#" {% endif %} class="img-responsive" alt="your image"></img>
+              <br>
+              <br>
+            </div>
+
+            <div class="form-group">
+            <label for="year">Date Taken:</label><br>
+              <div class="form-inline">
+                <div class="form-group">
+                  <input type="number" name="month" class="form-control" min="1" max="12" placeholder="mm" value="{{image.taken_at.month}}">
+                </div>
+                <span> - </span>
+                <div class="form-group">
+                  <input type="number" name="day" class="form-control" min="1" max="31" placeholder="dd" value="{{image.taken_at.day}}">
+                </div>
+                <span> - </span>
+                <div class="form-group">
+                  <input type="number" name="year" class="form-control" min="1900" max="2100" placeholder="yyyy"  value="{{image.taken_at.year}}">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="name">Image Description:</label><br>
+              <input class="form-control" type="text" name="description" value="{{ image.description }}">
+            </div>
+
+            <!--Allows server to see image id if it is from an edit-->
+            <div class="form-group">
+              <input type="hidden" name="img_id" value={%if image.filename%}{{image.id}}{%else%}""{%endif%}>
+            </div>
+
+            <input type="submit" value="Upload">
         </div>
       </form>
     </fieldset>
@@ -121,6 +160,20 @@
     var straboconfig = {{ straboconfig|tojson }};
     var features = {{ geo_features|tojson }};
     var edit_json = {{ my_ip_json|tojson }};
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#img-preview').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#img-input").change(function(){
+        readURL(this);
+    });
+    </script>
 </script>
 <script src="/static/js/map_info.js"></script>
 <script src="/static/js/{{ ADMINMAP_JS }}"></script>

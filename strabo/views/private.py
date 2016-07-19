@@ -146,6 +146,7 @@ def show_ips_upload_form(interest_point):
         interest_point=interest_point,
         my_ip_json=my_ip_json,
         straboconfig=straboconfig,
+        image=db.session.query(schema.Images).first(),
         **straboconfig)
 
 @app.route("/admin/upload_ips/")
