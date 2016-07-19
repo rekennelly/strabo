@@ -107,45 +107,50 @@
             {{ render_table(taken_images,True) }}
             {{ render_table(free_images,False) }}
         </table>-->
-        <button id="1"></button>
-            <legend>Upload a New Image</legend>
+            <button type="button" class="add-button" id="root-add-button" >Add Image Below</button>
+            <div id="img-holder">
 
-            <div class="upload-wrapper">
-              <input type="file" id="img-input" name="file" {% if not image.filename %} required {% endif %}>
-              <br>
-              <img id="img-preview" src={% if image.filename %} "{{THUMB_DIR_RELPATH}}{{image.filename}}" {% else %} "#" {% endif %} class="img-responsive" alt="your image"></img>
-              <br>
-              <br>
             </div>
+            <div class="img-prototype" hidden>
+                <strong>Upload a New Image</strong>
 
-            <div class="form-group">
-            <label for="year">Date Taken:</label><br>
-              <div class="form-inline">
-                <div class="form-group">
-                  <input type="number" name="month" class="form-control" min="1" max="12" placeholder="mm" value="{{image.taken_at.month}}">
+                <div class="upload-wrapper">
+                  <input type="file" id="img-input" name="file" {% if not image.filename %} required {% endif %}>
+                  <br>
+                  <img id="img-preview" src={% if image.filename %} "{{THUMB_DIR_RELPATH}}{{image.filename}}" {% else %} "#" {% endif %} class="img-responsive" alt="your image"></img>
+                  <br>
+                  <br>
                 </div>
-                <span> - </span>
+
                 <div class="form-group">
-                  <input type="number" name="day" class="form-control" min="1" max="31" placeholder="dd" value="{{image.taken_at.day}}">
+                <label for="year">Date Taken:</label><br>
+                  <div class="form-inline">
+                    <div class="form-group">
+                      <input type="number" name="month" class="form-control" min="1" max="12" placeholder="mm" value="{{image.taken_at.month}}">
+                    </div>
+                    <span> - </span>
+                    <div class="form-group">
+                      <input type="number" name="day" class="form-control" min="1" max="31" placeholder="dd" value="{{image.taken_at.day}}">
+                    </div>
+                    <span> - </span>
+                    <div class="form-group">
+                      <input type="number" name="year" class="form-control" min="1900" max="2100" placeholder="yyyy"  value="{{image.taken_at.year}}">
+                    </div>
+                  </div>
                 </div>
-                <span> - </span>
+
                 <div class="form-group">
-                  <input type="number" name="year" class="form-control" min="1900" max="2100" placeholder="yyyy"  value="{{image.taken_at.year}}">
+                  <label for="name">Image Description:</label><br>
+                  <input class="form-control" type="text" name="description" value="{{ image.description }}">
                 </div>
-              </div>
-            </div>
 
-            <div class="form-group">
-              <label for="name">Image Description:</label><br>
-              <input class="form-control" type="text" name="description" value="{{ image.description }}">
+                <!--Allows server to see image id if it is from an edit-->
+                <div class="form-group">
+                  <input type="hidden" name="img_id" value={%if image.filename%}{{image.id}}{%else%}""{%endif%}>
+                </div>
+                <button type="button" class="del-button">Delete</button>
+                <button type="button" class="add-button">Add Image Below</button>
             </div>
-
-            <!--Allows server to see image id if it is from an edit-->
-            <div class="form-group">
-              <input type="hidden" name="img_id" value={%if image.filename%}{{image.id}}{%else%}""{%endif%}>
-            </div>
-
-            <input type="submit" value="Upload">
         </div>
       </form>
     </fieldset>
