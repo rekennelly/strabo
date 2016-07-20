@@ -1,4 +1,4 @@
-strabo 
+strabo
 ======
 
 add_database.py
@@ -56,12 +56,6 @@ schema.py
     :members:
     :undoc-members:
     :show-inheritance:
-
-.. autoclass:: IdPrimaryKeyMixin
-   :members: 
-
-.. autoclass:: InterestPoints
-
 
 utils.py
 --------
