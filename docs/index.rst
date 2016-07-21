@@ -20,13 +20,15 @@ Table of Contents
 .. toctree::
     :maxdepth: 2
 
-    sphinx_markup
     installation
     install_help
     setup
+    editing_workflow
+    sphinx_markup
     config
     initDB
     runserver
+    add_database
     strabo
     strabo.views
 

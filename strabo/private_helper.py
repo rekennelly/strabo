@@ -26,7 +26,7 @@ def fill_interest_point(ip,image_ids,form_title,form_body,form_geo_obj,form_laye
 
 def fill_image(image,form_file_obj,form_descrip,year,month,day):
     '''
-    if a flask.files object is passed in, then  
+    If a flask.files object is passed in, then  
     '''
     image.taken_at = datetime.date(utils.safe_pos_int_conv(year),utils.safe_pos_int_conv(month),utils.safe_pos_int_conv(day))
     image.description = form_descrip
