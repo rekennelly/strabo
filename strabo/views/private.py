@@ -75,7 +75,7 @@ def show_image_upload_form(image):
 ###
 @app.route("/login/", methods=["GET"])
 def login():
-  return render_template("/public/login.html",**straboconfig)
+    return render_template("/public/login.html",**straboconfig)
 
 ###
 
@@ -137,7 +137,7 @@ def show_ips_upload_form(interest_point):
     #makes most recently added images appear first (may not be most recently updated)
     free_images.reverse()
     #gets images that the current interest point already owns
-    taken_images = interest_point.images
+    taken_images =  database.to_dict_list(interest_point.images)
 
     return render_template("private/upload_ips.html",
         geo_features=geo_features,
