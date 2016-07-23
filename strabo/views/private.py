@@ -133,11 +133,13 @@ def show_ips_upload_form(interest_point):
     my_ip_json = geojson_wrapper.to_geo_obj(interest_point.geojson_object) if interest_point.id else False
 
     #gets images that the current interest point already owns
-    ip_images =  database.to_dict_list(interest_point.images)
+    ip_images = interest_point.images
+    ip_images.sort(key=lambda img: img.ip_order_idx)
+    jsonifiable_ip_images = database.to_dict_list(ip_images)
 
     return render_template("private/upload_ips.html",
         geo_features=geo_features,
-        ip_images=ip_images,
+        ip_images=jsonifiable_ip_images,
         interest_point=interest_point,
         my_ip_json=my_ip_json,
         straboconfig=straboconfig,
@@ -150,14 +152,14 @@ def upload_ips():
 
 @app.route("/admin/interest_points/post", methods=["POST"])
 def interest_points_post():
-    imgs = [private_helper.make_image(*img_args) for img_args in zip(
+    imgs = [private_helper.make_image(ip_idx,*img_args) for ip_idx,img_args in enumerate(zip(
         request.form.getlist('img_id'),
         request.files.getlist('file'),
         request.form.getlist('img-descrip'),
         request.form.getlist('year'),
         request.form.getlist('month'),
         request.form.getlist('day')
-    )]
+    ))]
 
     private_helper.make_interest_point(request.form.get("ip_id"),imgs,
         request.form['title'],request.form['description'],request.form['geojson'],
