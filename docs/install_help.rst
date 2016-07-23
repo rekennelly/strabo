@@ -19,6 +19,9 @@ can be done with brew by::
     brew install libjpeg #ubuntu: apt-get install libjpeg-dev
     pip install  --no-cache-dir -I Pillow
 
+This error occurs when you installed Pillow before the system library as well, or randomly on OSX.
+If the system library is already installed you just need to do steps 1 and 3.
+
 On other systems, the process should be very similar, but the
 specific package and package system will be different.
 
