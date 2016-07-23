@@ -94,7 +94,7 @@ def image_post():
         img_obj = schema.Images()
         db.session.add(img_obj)
 
-    private_helper.fill_image(img_obj,request.files['file'],request.form['description'],request.form['year'],request.form['month'],request.form['day'])
+    private_helper.fill_image(img_obj,request.files['file'],request.form['img-descrip'],request.form['year'],request.form['month'],request.form['day'])
     db.session.commit()
     return redirect(url_for('images_table'))
 
@@ -128,21 +128,16 @@ def show_ips_upload_form(interest_point):
     #Gets all interest points, so that they can be displayed on the leaflet map.
     all_ips = db.session.query(schema.InterestPoints).all()
     geo_features = [geojson_wrapper.make_other_attributes_properties(ip) for ip in all_ips]
-    #gets the geojson object corrsponding to the current interest point so that the html form caontains a default values for the geojson
+    #gets the geojson object corrsponding to the current interest point so that
+    #the html form contains a default values for the geojson
     my_ip_json = geojson_wrapper.to_geo_obj(interest_point.geojson_object) if interest_point.id else False
 
-
-    #get all avaliable images
-    free_images = db.session.query(schema.Images).filter(schema.Images.interest_point_id == None).all()
-    #makes most recently added images appear first (may not be most recently updated)
-    free_images.reverse()
     #gets images that the current interest point already owns
-    taken_images =  database.to_dict_list(interest_point.images)
+    ip_images =  database.to_dict_list(interest_point.images)
 
     return render_template("private/upload_ips.html",
         geo_features=geo_features,
-        free_images=free_images,
-        taken_images=taken_images,
+        ip_images=ip_images,
         interest_point=interest_point,
         my_ip_json=my_ip_json,
         straboconfig=straboconfig,
@@ -155,16 +150,19 @@ def upload_ips():
 
 @app.route("/admin/interest_points/post", methods=["POST"])
 def interest_points_post():
-    ip_id =  request.form.get("ip_id")
-    if ip_id:
-        ip = db.session.query(schema.InterestPoints).get(ip_id)
-    else:
-        ip = schema.InterestPoints()
-        db.session.add(ip)
-        db.session.flush()
+    imgs = [private_helper.make_image(*img_args) for img_args in zip(
+        request.form.getlist('img_id'),
+        request.files.getlist('file'),
+        request.form.getlist('img-descrip'),
+        request.form.getlist('year'),
+        request.form.getlist('month'),
+        request.form.getlist('day')
+    )]
 
-    private_helper.fill_interest_point(ip,request.form.getlist('image_ids'),
+    private_helper.make_interest_point(request.form.get("ip_id"),imgs,
         request.form['title'],request.form['description'],request.form['geojson'],
         request.form['layer'],request.form['icon'])
+
     db.session.commit()
+
     return redirect(url_for('interest_points_table'))

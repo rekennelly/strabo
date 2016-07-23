@@ -107,7 +107,7 @@ function make_img_div(img,$last_div){
     $img_div.find('[name="month"]').val(date.getMonth());
     $img_div.find('[name="day"]').val(date.getDate());
     $img_div.find('[name="year"]').val(date.getFullYear());
-    $img_div.find('[name="description"]').val(img.description);
+    $img_div.find('[name="img-descrip"]').val(img.description);
     $img_div.find('[name="img_id"]').val(img.id);
     $img_div.find('[name="img-preview"]').attr('src',"/static/thumbnails/"+img.filename);
     return $img_div;
@@ -123,7 +123,6 @@ $(document).ready(function(){
     icon_message = $("#icon-form-issue");
     map_message = $("#map-form-issue");
     title_message = $("#title-form-issue");
-    console.log((new Date(ip_images[0].taken_at)).getFullYear());
     $("#root-add-button").click(function(){
         expand_div($("#img-holder"))
     })
