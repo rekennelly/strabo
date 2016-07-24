@@ -104,8 +104,8 @@ function $new_img_div(){
 function make_img_div(img,$last_div){
     var $img_div = expand_div($last_div)
     var date = new Date(img.taken_at);
-    $img_div.find('[name="month"]').val(date.getMonth()+1);
-    $img_div.find('[name="day"]').val(date.getDate());
+    $img_div.find('[name="month"]').val(date.getMonth()+1);//javascript date is zero indexed, so add 1 to make it consistent with python
+    $img_div.find('[name="day"]').val(date.getDate()+1);//javascript date is zero indexed, so add 1 to make it consistent with python
     $img_div.find('[name="year"]').val(date.getFullYear());
     $img_div.find('[name="img-descrip"]').val(img.description);
     $img_div.find('[name="img_id"]').val(img.id);
