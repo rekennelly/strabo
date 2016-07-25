@@ -3,28 +3,28 @@ Javascript
 
 
 
-``map_info.js``
----------------
+map_info.js
+-----------
 
 Helper code required by ``map.js`` and ``drawmap.js``.
 
 
 
-``map.js``
-----------
+map.js
+------
 
 Loaded by the main map page.
 
 
-``drawtextmap.js``
+drawtextmap.js
 --------------
 
 Loaded by the upload_ips page.
 
 
 
-``popup.js``
-------------
+popup.js
+--------
 
 Loaded by the main map page.
 
@@ -33,3 +33,8 @@ to render the photo gallery that is displayed in the
 main popup. When those images are clicked, it opens a
 `Photoswipe photo gallery <http://photoswipe.com/>`_ that allows you to
 view larger pictures.
+
+upload_ips.js
+-------------
+
+Handles form validation.

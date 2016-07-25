@@ -29,6 +29,7 @@ Table of Contents
     initDB
     runserver
     add_database
+    concepts
     strabo
     strabo.views
     javascript
