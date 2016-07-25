@@ -56,19 +56,10 @@ function hide_all(){
 }
 function expand_div($rootdiv){
     var $nextdiv = $new_img_div();
-    var nextnextdivlist = $rootdiv.children("div.rootimg");
-    if(nextnextdivlist.length > 0){
-        var $nextnextdiv = nextnextdivlist;
-        $nextnextdiv.detach();
-        $nextdiv.append($nextnextdiv);
-    }
-    $rootdiv.append($nextdiv);
+    $rootdiv.after($nextdiv);
     return $nextdiv;
 }
 function delete_div($rootdiv){
-    var $replacediv = $rootdiv.children("div.rootimg")
-    $replacediv.detach()
-    $rootdiv.parent().append($replacediv)
     $rootdiv.remove()
 }
 function activate_add_button($div){
@@ -97,7 +88,6 @@ function $new_img_div(){
     var $retdiv = $("div.img-prototype").clone(true,true);
     $retdiv.show();
     $retdiv.removeClass("img-prototype");
-    $retdiv.addClass("rootimg");
     activate_buttons($retdiv);
     return $retdiv;
 }
@@ -113,7 +103,7 @@ function make_img_div(img,$last_div){
     return $img_div;
 }
 function initalize_edit_images(){
-    var $last_img_div = $("#img-holder");
+    var $last_img_div = $("#img-start");
     ip_images.forEach(function(img){
         $last_img_div = make_img_div(img,$last_img_div);
     });
@@ -124,7 +114,7 @@ $(document).ready(function(){
     map_message = $("#map-form-issue");
     title_message = $("#title-form-issue");
     $("#root-add-button").click(function(){
-        expand_div($("#img-holder"))
+        expand_div($("#img-start"))
     })
     initalize_edit_images();
 });
