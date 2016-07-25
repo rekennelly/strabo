@@ -28,6 +28,7 @@ from strabo import geojson_wrapper
 from strabo import database
 from strabo import private_helper
 from strabo import schema
+from strabo import utils
 from strabo import app
 from strabo import db
 from strabo import straboconfig
@@ -37,36 +38,6 @@ from strabo import straboconfig
 def index():
   return render_template("private/base.html",**straboconfig)
 
-###
-###
-### Views to upload images to db
-###
-###
-
-@app.route("/admin/edit_images/")
-def images_table():
-    images = db.session.query(schema.Images).all()
-    return render_template("private/edit_images.html",
-      all_images=images,
-      **straboconfig)
-
-@app.route("/admin/edit_images/redirect")
-def images_redirect():
-    edit_id = request.args.get("edit-btn")
-    del_id = request.args.get("delete-btn")
-    if edit_id:
-        return show_image_upload_form(db.session.query(schema.Images).get(edit_id))
-    elif del_id:
-        database.delete_image(del_id)
-        return redirect(url_for('images_table'))
-    else:
-        raise RuntimeError("edit form somehow submitted without delete or edit being pressed")
-
-
-def show_image_upload_form(image):
-    return render_template("private/upload_images.html",
-    image=image,
-    **straboconfig)
 
 ###
 ###
@@ -76,28 +47,6 @@ def show_image_upload_form(image):
 @app.route("/login/", methods=["GET"])
 def login():
     return render_template("/public/login.html",**straboconfig)
-
-###
-
-###
-### Views to upload images to db
-@app.route("/admin/upload_images/")
-def upload_images():
-    return show_image_upload_form(schema.Images(filename="",description=""))
-
-@app.route("/admin/upload_images/post", methods=["POST"])
-def image_post():
-    img_id = request.form.get("img_id")
-    if img_id:
-        img_obj = db.session.query(schema.Images).get(img_id)
-    else:
-        img_obj = schema.Images()
-        db.session.add(img_obj)
-
-    private_helper.fill_image(img_obj,request.files['file'],request.form['img-descrip'],request.form['year'],request.form['month'],request.form['day'])
-    db.session.commit()
-    return redirect(url_for('images_table'))
-
 
 ###
 ###
@@ -135,7 +84,7 @@ def show_ips_upload_form(interest_point):
     #gets images that the current interest point already owns
     ip_images = interest_point.images
     ip_images.sort(key=lambda img: img.ip_order_idx)
-    jsonifiable_ip_images = database.to_dict_list(ip_images)
+    jsonifiable_ip_images = [utils.concatenate_dicts(database.to_dictonary(img),{'day':img.taken_at.day,'month':img.taken_at.month,'year':img.taken_at.year}) for img in ip_images]
 
     return render_template("private/upload_ips.html",
         geo_features=geo_features,

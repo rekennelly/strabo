@@ -103,13 +103,13 @@ function $new_img_div(){
 }
 function make_img_div(img,$last_div){
     var $img_div = expand_div($last_div)
-    var date = new Date(img.taken_at);
-    $img_div.find('[name="month"]').val(date.getMonth()+1);//javascript date is zero indexed, so add 1 to make it consistent with python
-    $img_div.find('[name="day"]').val(date.getDate()+1);//javascript date is zero indexed, so add 1 to make it consistent with python
-    $img_div.find('[name="year"]').val(date.getFullYear());
+    $img_div.find('[name="month"]').val(img.month);//javascript date is zero indexed, so add 1 to make it consistent with python
+    $img_div.find('[name="day"]').val(img.day);//javascript date is zero indexed, so add 1 to make it consistent with python
+    $img_div.find('[name="year"]').val(img.year);
     $img_div.find('[name="img-descrip"]').val(img.description);
     $img_div.find('[name="img_id"]').val(img.id);
     $img_div.find('[name="img-preview"]').attr('src',"/static/thumbnails/"+img.filename);
+    $img_div.find('[name="file"]').removeAttr('required');
     return $img_div;
 }
 function initalize_edit_images(){
