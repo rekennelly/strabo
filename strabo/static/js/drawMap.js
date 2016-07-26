@@ -1,18 +1,24 @@
-var shape_drawn = false;
 var shapeLayer;
 
+function init_map(){
+    /*
+    Creates and configures the admin map and adds the interest points to it.
 
+    Returns the map.
+    */
+    var drawMap = make_map('drawMap');
+    add_tile_to(drawMap);
+
+
+    var all_layers_group = L.geoJson(features);
+    set_styles(all_layers_group);
+    bind_popups(all_layers_group);
+    all_layers_group.addTo(drawMap);
+    return drawMap;
+}
 $(function()
 {
-// The Admin Map
-var drawMap = make_map('drawMap');
-add_tile_to(drawMap);
-
-
-var all_layers_group = L.geoJson(features);
-set_styles(all_layers_group);
-bind_popups(all_layers_group);
-all_layers_group.addTo(drawMap);
+var drawMap = init_map();
 
 var drawnItems = new L.FeatureGroup();
 drawMap.addLayer(drawnItems);
@@ -21,12 +27,6 @@ drawMap.addLayer(drawnItems);
 // Removes some toolbar things and also sets colors
 
 var shapeColorInit = '#2397EB';
-
-//This place
-if (edit_json){
-    shape_drawn = true;
-    shapeLayer = L.geoJson(edit_json).getLayers()[0];
-}
 
 var options1 = {
 
@@ -76,7 +76,6 @@ drawMap.addControl(drawControla);
 
 drawMap.on('draw:created', function (e) { //grab s layer of drawn item
     shapeLayer = e.layer;
-    shape_drawn = true;
     drawnItems.addLayer(shapeLayer);
 
     drawControla.removeFrom(drawMap);
@@ -86,21 +85,12 @@ drawMap.on('draw:created', function (e) { //grab s layer of drawn item
 drawMap.on('draw:deleted', function (e) {
     //awkward, test this in different browsers
     if (Object.keys(e.layers._layers).length > 0){
-        shape_drawn = false;
-
         drawControlb.removeFrom(drawMap);
         drawMap.addControl(drawControla);
     }
 })
-/*
-  var $e = $("#colorPick")
-  var $usrSelect = $("#colorPick :selected").text();
-
-  $e.change(function() {
-    $usrSelect = $("#colorPick :selected").text();
-});*/
-});
 $('#upload-btn').click(function (e) {
-    var JSONobject = JSON.stringify(shapeLayer.toGeoJSON());
+    var JSONobject = shapeLayer != null ? JSON.stringify(shapeLayer.toGeoJSON()) : "";
     $('#geojson-field').attr("value", JSONobject);
+});
 });

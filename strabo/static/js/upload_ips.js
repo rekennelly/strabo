@@ -1,46 +1,45 @@
-var layer_message;
-var icon_message;
-var map_message;
-var title_message;
+var InputField = function(message_identifier,is_valid_cond){
+    this.check = function(form){
+        return is_valid_cond(form)
+    }
+    this.hideMessage = function(){
+        $(message_identifier).hide();
+    }
+    this.showMessage = function(){
+        $(message_identifier).show();
+    }
+}
+var validators = [
+    new InputField("#map-form-issue",function(form){
+        return form.geojson.value != "";
+    }),
+    new InputField("#icon-form-issue",function(form){
+        return form.icon.selectedIndex != 0
+    }),
+    new InputField("#title-form-issue",function(form){
+        return form.name.value != ""
+    }),
+    new InputField("#layer-form-issue",function(form){
+        return form.layer.selectedIndex != 0
+    })
+]
 
-function feature_drawn(){
-    return shape_drawn;
-}
-function entered_name(form){
-    return form.name.value != ""
-}
-function selected_layer(form){
-    return form.layer.selectedIndex != 0
-}
-function selected_icon(form){
-    return form.icon.selectedIndex != 0
-}
 function checkForm(form){
-    var form_valid = true;
-    hide_all();
-    if(!feature_drawn()){
-        map_message.show();
-        form_valid = false;
-    }
-    if(!entered_name(form)) {
-        title_message.show();
-        form_valid = false;
-    }
-    if(!selected_layer(form)){
-        layer_message.show();
-        form_valid = false;
-    }
-    if(!selected_icon(form)){
-        icon_message.show();
-        form_valid = false;
-    }
-    return form_valid;
-}
-function hide_all(){
-    layer_message.hide();
-    icon_message.hide();
-    title_message.hide();
-    map_message.hide();
+    /*
+   :param form: Special builtin form object.
+   :returns: Whether the form is vaild or not. If it returns false, then the form is not submitted.
+    */
+    var is_valid = true;
+    validators.forEach(function(validator){
+        if(validator.check(form)){
+            validator.hideMessage();
+        }
+        else{
+            is_valid = false;
+            validator.showMessage();
+        }
+    })
+    return is_valid;
 }
 function expand_div($rootdiv){
     var $nextdiv = $new_img_div();
@@ -84,11 +83,6 @@ function $new_img_div(){
     return $retdiv;
 }
 $(document).ready(function(){
-    layer_message = $("#layer-form-issue");
-    icon_message = $("#icon-form-issue");
-    map_message = $("#map-form-issue");
-    title_message = $("#title-form-issue");
-
     $("#root-add-button").click(function(){
         expand_div($("#img-holder"))
     })

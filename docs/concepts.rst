@@ -15,7 +15,7 @@ resized image files can be recreated by running generate_mobile_imgs.py, and eve
 good.
 
 Image resizing
---------------
+~~~~~~~~~~~~~~
 
 In order to speed up our website's page load times, there are two different sizes of files which are
 automatically generated from the original file. They are generated during upload and when

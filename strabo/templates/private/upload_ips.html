@@ -13,13 +13,33 @@
         font-style: italic;
     }
     </style>
+    <script>
+        var straboconfig = {{ straboconfig|tojson }};
+        var features = {{ geo_features|tojson }};
+        var edit_json = {{ my_ip_json|tojson }};
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#img-preview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#img-input").change(function(){
+            readURL(this);
+        });
+    </script>
+    <script src="/static/js/map_info.js"></script>
+    <script src="/static/js/{{ ADMINMAP_JS }}"></script>
 {% endblock %}
 
 {% block content %}
 <main class="container">
   <div class="form">
     <fieldset>
-      <form id="ip-upload"  method="POST" action="/admin/interest_points/post"  onsubmit="return checkForm(this);" enctype="multipart/form-data">
+      <form id="ip-upload"  method="POST" onsubmit="return checkForm(this);" action="/admin/interest_points/post" enctype="multipart/form-data">
 
         <div class="row">
           <div class="form-wrapper col-md-8">
@@ -69,10 +89,6 @@
             <div class="form-group">
               <label for="description">Interest Point Description:</label><br>
               <textarea class="form-control" rows='5' type="text" name="description">{{interest_point.descrip_body}}</textarea>
-            </div>
-
-            <div class="form-group">
-              <input id="geojson-field" type="hidden" name="geojson" value="">
             </div>
 
             <p></p>
@@ -162,25 +178,4 @@
 
 {% block footer %}
     {{ super () }}
-<script>
-    var straboconfig = {{ straboconfig|tojson }};
-    var features = {{ geo_features|tojson }};
-    var edit_json = {{ my_ip_json|tojson }};
-
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#img-preview').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-    $("#img-input").change(function(){
-        readURL(this);
-    });
-    </script>
-</script>
-<script src="/static/js/map_info.js"></script>
-<script src="/static/js/{{ ADMINMAP_JS }}"></script>
 {% endblock %}
