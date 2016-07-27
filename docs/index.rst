@@ -15,14 +15,15 @@ Here you will find documentation for the public and private ends of the Reed Can
 Credit Reed College, 2016.
 
 General documentation structure
+===============================
 
-For people who only want to run strabo(takes role of getting started tutorial):
+For people who only want to run strabo(getting started tutorial):
 
 * installation/setup guide
 * configuration guide
 * issues help guide
 
-For people who want to learn about strabo (takes role of topic documentation):
+For people who want to learn about strabo (topic documentation):
 
 * concepts
 
