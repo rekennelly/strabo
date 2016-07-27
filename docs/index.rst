@@ -23,13 +23,13 @@ Table of Contents
     installation
     install_help
     setup
-    editing_workflow
     sphinx_markup
+    editing_workflow
+    concepts
     config
     initDB
     runserver
     add_database
-    concepts
     strabo
     strabo.views
     javascript

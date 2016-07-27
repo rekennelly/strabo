@@ -1,7 +1,7 @@
 Editing Workflow
 ================
 
-CHANGING THE DATATBASE
+Changing the Database
 ----------------------
 
 * schema.py
@@ -50,8 +50,8 @@ Database file structure
         * Side affects should probably be somewhere else
 
 
-ADDING FEATURES TO ADMIN INTERFACE
-----------------------------------
+Adding Features to the Admin Interface
+--------------------------------------
 
 Add feature to database as explained in db_edit.py
 

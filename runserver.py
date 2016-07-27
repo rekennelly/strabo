@@ -1,3 +1,6 @@
+'''
+Runs Strabo web page. Contains the secret key.
+'''
 from strabo import utils
 import config
 

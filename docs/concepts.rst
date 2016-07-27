@@ -8,7 +8,7 @@ Image Management
 
 When images are added to the database, only one filename is stored, the name of the
 saved file in the ``static/uploads`` directory. No matter what filename of the uploaded
-file is, it will never overwrite a file in that directory, instead it will generate
+file is, it will never overwrite a file in that directory. Instead it will generate
 a random string which it appends to the filename and then saves it. Even though this file is
 never shown in the browser, it is still important as a reference image. If it is there, then the
 resized image files can be recreated by running generate_mobile_imgs.py, and everything should be

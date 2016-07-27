@@ -1,3 +1,6 @@
+'''
+Initializes Postgres database tables.
+'''
 from strabo import schema
 from strabo import database
 
