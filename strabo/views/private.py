@@ -106,8 +106,7 @@ def interest_points_post():
         request.files.getlist('file'),
         request.form.getlist('img-descrip'),
         request.form.getlist('year'),
-        request.form.getlist('month'),
-        request.form.getlist('day')
+        request.form.getlist('month')
     ))]
 
     private_helper.make_interest_point(request.form.get("ip_id"),imgs,

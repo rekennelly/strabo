@@ -104,7 +104,6 @@ function $new_img_div(){
 function make_img_div(img,$last_div){
     var $img_div = expand_div($last_div)
     $img_div.find('[name="month"]').val(img.month);
-    $img_div.find('[name="day"]').val(img.day);
     $img_div.find('[name="year"]').val(img.year);
     $img_div.find('[name="img-descrip"]').val(img.description);
     $img_div.find('[name="img_id"]').val(img.id);

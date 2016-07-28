@@ -30,7 +30,7 @@ def make_interest_point(ip_id,images,form_title,form_body,form_geo_obj,form_laye
     ip.images = images
     return ip
 
-def make_image(ip_idx,form_image_id,form_file_obj,form_descrip,year,month,day):
+def make_image(ip_idx,form_image_id,form_file_obj,form_descrip,year,month):
     '''
     if a flask.files object is passed in, then
     '''
@@ -40,7 +40,8 @@ def make_image(ip_idx,form_image_id,form_file_obj,form_descrip,year,month,day):
         image = schema.Images()
         db.session.add(image)
 
-    image.taken_at = datetime.date(utils.safe_pos_int_conv(year),utils.safe_pos_int_conv(month),utils.safe_pos_int_conv(day))
+    default_day = 1
+    image.taken_at = datetime.date(utils.safe_pos_int_conv(year),utils.safe_pos_int_conv(month),1)
     image.description = form_descrip
     image.ip_order_idx = ip_idx
 

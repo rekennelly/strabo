@@ -48,14 +48,14 @@ geo_obj2 = '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordi
 geo_obj3 = '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-122.63245,45.48236]}}'
 
 
-img1 = private_helper.make_image(1,'',mock_flask_file_obj("test_images","download.jpg"),"bird","1998","10","1")
-img2 = private_helper.make_image(2,'',mock_flask_file_obj("test_images","download1.jpg"),"flower","1989","10","11")
-img3 = private_helper.make_image(3,'',mock_flask_file_obj("test_images","download2.jpg"),"small flowers","1989","11","")
-img4 = private_helper.make_image(4,'',mock_flask_file_obj("test_images","download3.jpg"),"beach","201","10","12")
-img5 = private_helper.make_image(5,'',mock_flask_file_obj("test_images","image with space.jpg"),"canyon","1998","","1")
-img6 = private_helper.make_image(6,'',mock_flask_file_obj("test_images","phone_testing.png"),"phone","1997","11","12")
-img7 = private_helper.make_image(7,'',mock_flask_file_obj("test_images","FishLadder2001.jpg"),"Fish Ladder Construction, November 2001","2001","10","16")
-img8 = private_helper.make_image(8,'',mock_flask_file_obj("test_images","FishLadderSmallSize.jpg"),"Fish Ladder Today","2009","6","6")
+img1 = private_helper.make_image(1,'',mock_flask_file_obj("test_images","download.jpg"),"bird","1998","10")
+img2 = private_helper.make_image(2,'',mock_flask_file_obj("test_images","download1.jpg"),"flower","1989","10")
+img3 = private_helper.make_image(3,'',mock_flask_file_obj("test_images","download2.jpg"),"small flowers","1989","11")
+img4 = private_helper.make_image(4,'',mock_flask_file_obj("test_images","download3.jpg"),"beach","2010","10")
+img5 = private_helper.make_image(5,'',mock_flask_file_obj("test_images","image with space.jpg"),"canyon","1998","")
+img6 = private_helper.make_image(6,'',mock_flask_file_obj("test_images","phone_testing.png"),"phone","1997","11")
+img7 = private_helper.make_image(7,'',mock_flask_file_obj("test_images","FishLadder2001.jpg"),"Fish Ladder Construction, November 2001","2001","10")
+img8 = private_helper.make_image(8,'',mock_flask_file_obj("test_images","FishLadderSmallSize.jpg"),"Fish Ladder Today","2009","6")
 
 db.session.add(img1)
 db.session.add(img2)
