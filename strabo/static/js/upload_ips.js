@@ -98,6 +98,12 @@ function $new_img_div(){
     $retdiv.show();
     $retdiv.removeClass("img-prototype");
     $retdiv.addClass("rootimg");
+
+    //sets today's date as default
+    var today = new Date();//today's date
+    $retdiv.find('[name="month"]').attr('placeholder',today.getMonth()+1);
+    $retdiv.find('[name="year"]').attr('placeholder',today.getFullYear());
+
     activate_buttons($retdiv);
     return $retdiv;
 }
