@@ -1,25 +1,23 @@
 '''
 The admin interface has 4 different core features:
 
-1. You can view an html table that corresponds directly with the database table.
-The interest_points_table and images_table functions collect information in the
-database and generate these html tables.
+1. You can view an html table that corresponds directly with the database table. (interest_points_table)
 
 2. There will be delete and edit options on that table. When these options are chosen
-in the html form, the images_redirect or interest_points_redirect functions are called,
-no matter which option is chosen. So these functions figure out which option was chosen,
-and act accordingly, deleting the item from the table and refreshing the page if
-"delete" was chosen, or bringing up an editing interface if "edit" is chosen.
+in the html form, the interest_points_redirect function is called,
+no matter which option is chosen. So interest_points_redirect figures out which option was chosen.
+If "delete" was chosen, it deletes the item from the table and refreshes the page.
+If "edit" was chosen, it brings up an editing interface.
 
-3. Upload/edit interface. The logic of this occurs in show_ips_upload_form and show_image_upload_form.
-These functions take in an row object (which can be blank, and does not have to be in the database)
+3. Upload/edit interface. The logic of this occurs in show_ips_upload_form.
+It takes in an row object which can be blank, and does not have to be in the database
 and process it so that an upload html form can be rendered with default entries corresponding to the
 entries in the row object.
 
 4. Upload interface. upload_images and upload_ips gives edit interface from #3
 a row object with empty entries in it.
 
-5. Submission: image_post and interest_points_post.
+5. Submission: interest_points_post.
 '''
 
 from flask import request, render_template, redirect, url_for
