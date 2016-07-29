@@ -2,7 +2,7 @@
 Organzes the popup
 -->
 
-<div class="popup" hidden>
+<div id="popup" hidden>
     <div class="popup-foreground horizontal-center vertical-center">
         <div class="top-section">
             <h2 id="ip_title" class="col-xs-10">
@@ -11,7 +11,7 @@ Organzes the popup
             <!--- Maybe not ideal on desktop
             watch out for the button/andor title getting cut off on mobile-->
             <div class="col-xs-2 button-parent">
-              <label class="close-button" onclick="hide_popup();">&times;</label>
+              <label id="close-button">&times;</label>
             </div>
 
             <p id="ip_description" class="col-xs-12 ip-descrip">

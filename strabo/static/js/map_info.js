@@ -49,7 +49,7 @@ function set_styles(all_layers_group){
         });
     });
     points.forEach(function(point){
-        point.setIcon(iconObjs[aa.feature.properties.icon]);
+        point.setIcon(iconObjs[point.feature.properties.icon]);
     })
 }
 function place_overlays_on(all_layers_group,map){

@@ -7,7 +7,7 @@ map_info.js
 
 Helper code required by ``map.js`` and ``drawmap.js``.
 
-Extensively uses the `Leaflet library <http://leafletjs.com/>` and so the documentation
+Extensively uses the `Leaflet library <http://leafletjs.com/>`_ and so the documentation
 for this file contains links to their documentation whenever appropriate.
 
 .. js:class:: ColorIcon(icon_options)

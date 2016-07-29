@@ -5,14 +5,6 @@ var gallery;
 //list of image objects passed from post call in ip_clicked
 var imgs;
 
-function hide_popup(){
-    $('.popup').hide();
-    $('.popup-background').hide();
-}
-function show_popup(){
-    $('.popup').show();
-    $('.popup-background').show();
-}
 //calculates thumbnail size from the full size image size passed in
 function get_shrunk_dim(img,max_dim){
     ratio = Math.min(max_dim[0]/img.width,max_dim[1]/img.height);
@@ -58,7 +50,7 @@ function ip_clicked(db_id) {
             var ip_title = data.title;
 
             //renders the popup
-            show_popup();
+            $('#popup').show();
 
             remove_all_carosel_entries();
 
@@ -146,8 +138,14 @@ function set_flickety_img_title(){
         $("#img_description").text(img.description);
     })
 }
+function set_popup_close_button(){
+    $("#close-button").click(function(){
+        $("#popup").hide();
+    })
+}
 
 function flickety_init(){
+    //only call once!
     flkty = new Flickity(document.getElementById("carouselholder"),
         {imagesLoaded: true,
         pageDots:false,
@@ -156,4 +154,5 @@ function flickety_init(){
     );
     set_flickety_img_title();
     set_flickety_click();
+    set_popup_close_button();;
 }
