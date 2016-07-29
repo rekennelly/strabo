@@ -6,7 +6,6 @@
     <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.3/leaflet.draw.css' rel='stylesheet' />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="/static/js/upload_ips.js"></script>
     <style>
     .form-error {
         color:#ff0000;
@@ -17,20 +16,9 @@
         var straboconfig = {{ straboconfig|tojson }};
         var features = {{ geo_features|tojson }};
         var edit_json = {{ my_ip_json|tojson }};
-
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#img-preview').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        $("#img-input").change(function(){
-            readURL(this);
-        });
+        var ip_images = {{ ip_images|tojson }};
     </script>
+    <script src="/static/js/upload_ips.js"></script>
     <script src="/static/js/map_info.js"></script>
     <script src="/static/js/{{ ADMINMAP_JS }}"></script>
 {% endblock %}
@@ -39,7 +27,7 @@
 <main class="container">
   <div class="form">
     <fieldset>
-      <form id="ip-upload"  method="POST" onsubmit="return checkForm(this);" action="/admin/interest_points/post" enctype="multipart/form-data">
+      <form method="POST" action="/admin/interest_points/post"  onsubmit="return checkForm(this);" enctype="multipart/form-data">
 
         <div class="row">
           <div class="form-wrapper col-md-8">
@@ -66,7 +54,7 @@
           <div class="form-group">
             <label for="layer">Layer:</label><br>
             <select class="form-control" name="layer">
-                <option>Select One</a></option>
+                <option>Select One</option>
                 {% for layer_num,layer_name in LAYER_FIELDS.items() %}
                 <option {%if layer_num == interest_point.layer%}selected{%endif%}>{{layer_name}}</option>
                 {% endfor %}
@@ -78,7 +66,7 @@
              <!-- to make this look better, use bootstrap-select library. -->
             <label for="icon">Point Icon:</label><br>
             <select class="form-control icon-menu" name="icon">
-                <option>Select One</a></option>
+                <option>Select One</option>
                 {% for ico_name in MAP_ICONS %}
                 <option {%if ico_name == interest_point.icon%}selected{%endif%}>{{ico_name}}</option>
                 {% endfor %}
@@ -88,7 +76,7 @@
 
             <div class="form-group">
               <label for="description">Interest Point Description:</label><br>
-              <textarea class="form-control" rows='5' type="text" name="description">{{interest_point.descrip_body}}</textarea>
+              <textarea class="form-control" rows='5' name="description">{{interest_point.descrip_body}}</textarea>
             </div>
 
             <p></p>
@@ -99,80 +87,26 @@
 
 
           <br><br>
-        <!--
-          <table class="table-bordered" margin="10px">
-            <tr>
-              <th></th>
-              <th>Image</th>
-              <th>Description</th>
-            </tr>
-            {% macro render_table(images,is_checked) %}
-                {% for img in images %}
-                    <tr>
-                      <td>
-                          <input type="checkbox" name='image_ids' value={{ img.id }} {%if is_checked%}checked{%endif%}>
-                      </td>
-                      <td><img src="{{ THUMB_DIR_RELPATH }}{{ img.filename }}" alt="thumbnail" style="width:100px;height:100px;"></img></td>
-                      <td>{{ img.description }}</td>
-                    </tr>
-                {% endfor %}
-            {% endmacro %}
-
-            {{ render_table(taken_images,True) }}
-            {{ render_table(free_images,False) }}
-        </table>-->
+        <div class="row">
+            <div class="col-md-8">
             <button type="button" class="add-button" id="root-add-button" >Add Image Below</button>
-            <div id="img-holder">
+            <div id="img-start">
 
             </div>
-            <div class="img-prototype" hidden>
-                <strong>Upload a New Image</strong>
 
-                <div class="upload-wrapper">
-                  <input type="file" id="img-input" name="file" {% if not image.filename %} required {% endif %}>
-                  <br>
-                  <img id="img-preview" src={% if image.filename %} "{{THUMB_DIR_RELPATH}}{{image.filename}}" {% else %} "#" {% endif %} class="img-responsive" alt="your image"></img>
-                  <br>
-                  <br>
-                </div>
-
-                <div class="form-group">
-                <label for="year">Date Taken:</label><br>
-                  <div class="form-inline">
-                    <div class="form-group">
-                      <input type="number" name="month" class="form-control" min="1" max="12" placeholder="mm" value="{{image.taken_at.month}}">
-                    </div>
-                    <span> - </span>
-                    <div class="form-group">
-                      <input type="number" name="day" class="form-control" min="1" max="31" placeholder="dd" value="{{image.taken_at.day}}">
-                    </div>
-                    <span> - </span>
-                    <div class="form-group">
-                      <input type="number" name="year" class="form-control" min="1900" max="2100" placeholder="yyyy"  value="{{image.taken_at.year}}">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="name">Image Description:</label><br>
-                  <input class="form-control" type="text" name="description" value="{{ image.description }}">
-                </div>
-
-                <!--Allows server to see image id if it is from an edit-->
-                <div class="form-group">
-                  <input type="hidden" name="img_id" value={%if image.filename%}{{image.id}}{%else%}""{%endif%}>
-                </div>
-                <button type="button" class="del-button">Delete</button>
-                <button type="button" class="add-button">Add Image Below</button>
-            </div>
             <br><br><br>
-            <input id="upload-btn" type="submit" value="Upload">
+            <input id="upload-btn" type="submit" onclick="console.log('hi there');" value="Upload">
           </div>
+        </div>
+      </div>
         </div>
       </form>
     </fieldset>
   </div>
 </main>
+
+{% include "private/upload_img_model.html" %}
+
 {% endblock %}
 
 

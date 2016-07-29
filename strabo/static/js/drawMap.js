@@ -91,6 +91,10 @@ function set_draw_controls(drawMap,drawnItems){
     })
 }
 function init_geojson_setter(){
+    if (edit_json){
+        shape_drawn = true;
+        shapeLayer = L.geoJson(edit_json).getLayers()[0];
+    }
     $('#upload-btn').click(function (e) {
         var JSONobject = shape_drawn ? JSON.stringify(shapeLayer.toGeoJSON()) : "";
         $('#geojson-field').attr("value", JSONobject);
