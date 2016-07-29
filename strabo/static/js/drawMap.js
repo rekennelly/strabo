@@ -11,7 +11,7 @@ function init_map(){
     add_tile_to(drawMap);
 
 
-    var all_layers_group = L.geoJson(features);
+    var all_layers_group = make_all_layers_group(features);
     set_styles(all_layers_group);
     bind_popups(all_layers_group);
     all_layers_group.addTo(drawMap);

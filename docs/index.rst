@@ -14,25 +14,6 @@ Here you will find documentation for the public and private ends of the Reed Can
 
 Credit Reed College, 2016.
 
-General documentation structure
-===============================
-
-For people who only want to run strabo(getting started tutorial):
-
-* installation/setup guide
-* configuration guide
-* issues help guide
-
-For people who want to learn about strabo (topic documentation):
-
-* concepts
-
-For people who want to edit strabo(reference):
-
-* root files
-* strabo files
-* strabo.view files
-* javascript files
 
 Table of Contents
 =================
@@ -42,6 +23,7 @@ Table of Contents
     installation
     install_help
     setup
+    config_guide
     sphinx_markup
     editing_workflow
     concepts

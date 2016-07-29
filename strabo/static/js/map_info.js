@@ -15,7 +15,7 @@ var ColorIcon = L.Icon.extend({
     }
 });
 
-var icon_objs = function(){
+var iconObjs = function(){
     var icon_objs = {};
         straboconfig["MAP_ICONS"].forEach(function(icon_name){
         icon_objs[icon_name] = new ColorIcon({iconUrl:'/static/map_icons/' + icon_name});
@@ -23,14 +23,15 @@ var icon_objs = function(){
     return icon_objs;
 }();
 
-// leaflet map object
-function make_map(map_cont){
-    var map = L.map(map_cont, {}).setView([straboconfig["LAT_SETTING"], straboconfig["LONG_SETTING"]], straboconfig["INITIAL_ZOOM"]);
-
-    return map;
+// creates leaflet map object
+function make_map(map_container_id){
+    return L.map(map_container_id, {}).setView([straboconfig["LAT_SETTING"], straboconfig["LONG_SETTING"]], straboconfig["INITIAL_ZOOM"]);
 }
 function add_tile_to(map){
     L.tileLayer(straboconfig["MAP_TILE_SRC"],straboconfig["LEAFLET_ATTRIBUTES"]).addTo(map);
+}
+function make_all_layers_group(interest_point_geojson_list){
+    return L.geoJson(interest_point_geojson_list)
 }
 // sets icon object for points and stlying for zones
 function set_styles(all_layers_group){
@@ -48,11 +49,12 @@ function set_styles(all_layers_group){
         });
     });
     points.forEach(function(point){
-        point.setIcon(icon_objs[point.feature.properties.icon]);
+        point.setIcon(iconObjs[aa.feature.properties.icon]);
     })
 }
-// Set layers and add toggle control menu for each layer
 function place_overlays_on(all_layers_group,map){
+    // Set layers and add toggle control menu for each layer,
+    //NOTE: will not work if all_layers_group is added to the map elsewhere
     var all_layers = all_layers_group.getLayers();
     var overlays = {};
     for(var lay_num in straboconfig["LAYER_FIELDS"]){

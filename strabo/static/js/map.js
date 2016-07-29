@@ -25,7 +25,7 @@ $(document).ready(function(){
 
     flickety_init();
 
-    var all_layers_group = L.geoJson(features);
+    var all_layers_group = make_all_layers_group(features);
     set_styles(all_layers_group);
     place_overlays_on(all_layers_group,map);
     bind_popups(all_layers_group);

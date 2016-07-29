@@ -7,6 +7,92 @@ map_info.js
 
 Helper code required by ``map.js`` and ``drawmap.js``.
 
+Extensively uses the `Leaflet library <http://leafletjs.com/>` and so the documentation
+for this file contains links to their documentation whenever appropriate.
+
+.. js:class:: ColorIcon(icon_options)
+
+    :param object icon_options: Options are described `here <http://leafletjs.com/reference.html#icon>`_
+
+    Extends `L.Icon <http://leafletjs.com/reference.html#icon>`_
+
+    Allows one to create icons of the hard-coded size by simply passing in
+    iconUrl as an option.
+
+    Example:
+
+    .. code-block:: javascript
+
+        var myicon = new ColorIcon({iconUrl:'/static/map_icons/Green.png'});
+
+.. js:data:: locateIcon
+
+    Leaflet icon object that marks user location.
+
+.. js:data:: icon_objs
+
+    Dictionary mapping all icon filenames to the ColorIcon object that
+    uses that file as its marker.
+
+.. js:function:: make_map(map_container_id)
+
+    :param string map_container_id: Id of the HTML div that will contain the map.
+
+    Creates leaflet map with latitude, longitude, and initial zoom
+    settings described in config.
+
+.. js:function:: add_tile_to(map)
+
+    :param map: Leaflet map.
+
+    Adds tile source according to MAP_TILE_SRC config value, allowing the map
+    tiles to be loaded.
+
+    Adds leaflet attributes footer with the text specified by LEAFLET_ATTRIBUTES
+    to the bottom of the map.
+
+.. js:function:: make_all_layers_group(interest_point_geojson_list)
+
+    :param interest_point_geojson_list: List of geojson objects that are passed in.
+    :returns: A `L.FeatureGroup <http://leafletjs.com/reference.html#featuregroup>`_
+        which is the form other helper functions expect the interest_point data to be in.
+
+.. js:function:: set_styles(all_layers_group)
+
+    :param `L.FeatureGroup <http://leafletjs.com/reference.html#featuregroup>`_ all_layers_group:
+        Contains interest point data.
+
+    For all interest points which are of the "Polygon" geojson type, it sets the
+    style to a hard-coded value.
+
+    For interest points which are of the "Point" geojson type (regular
+    interest points) it sets the marker icon specified by the icon filename
+    associated with the interest point.
+
+.. js:function:: place_overlays_on(all_layers_group,map)
+
+    :param map: Leaflet map.
+    :param `L.FeatureGroup <http://leafletjs.com/reference.html#featuregroup>`_ all_layers_group:
+        Contains interest point data.
+
+        RESTRICTION: Cannot have already been added to the map.
+
+    Creates a leaflet `Control.Layers <http://leafletjs.com/reference.html#control-layers>`_
+    which allows one to selectively remove and add groups of interest points called
+    "layers" from the map.
+
+    Adds all_layers_group to the map in pieces corresponding to the layers.
+
+    The names of the layers correspond to the names in the config value LAYER_FIELDS.
+    See :ref:`layer_field_config` documentation for more information.
+
+.. js:function:: bind_popups(all_layers_group)
+
+    :param `L.FeatureGroup <http://leafletjs.com/reference.html#featuregroup>`_ all_layers_group:
+        Contains interest point data.
+
+    Makes all interest points in all_layers_group bring up a default leaflet popup
+    when clicked displaying the interest point name.
 
 
 map.js
@@ -14,18 +100,41 @@ map.js
 
 Loaded by the main map page.
 
+.. js:function:: set_map_click(map)
 
-drawtextmap.js
---------------
+    Makes it so that whenever the map is clicked,
+    a popup is opened displaying the latitude and longitude of the location
+    that was clicked.
+
+.. js:function:: set_feature_click(all_layers_group)
+
+    :param `L.FeatureGroup <http://leafletjs.com/reference.html#featuregroup>`_ all_layers_group:
+        Contains interest point data.
+
+    Sets all interest points in all_layers_group to call :js:func:`ip_clicked(db_id)` when clicked
+    passing in the interest point's id as the argument.
+
+drawMap.js
+----------
 
 Loaded by the upload_ips page.
 
+This file displays a map which the administrator can use to pick an interest point
+location by hand.
+
+It shares map configuration properties with map.js via map_info.js functions
+
+.. js:function:: set_draw_controls(drawMap,drawnItems)
+
+    :param string message_identifier: A jquery selector string (like "#map-form-issue") which points to the error message that is shown
+        when the input field is valid.
 
 
 popup.js
 --------
 
 Loaded by the main map page.
+
 
 Flickty
 ~~~~~~~
@@ -105,7 +214,7 @@ Then you can just add an InputField which knows about that message.
     html error message which explain what all is wrong with the form, or if they are valid, hides the form.
 
     :param form: Special builtin form object.
-    :returns: Whether the form is vaild or not. If it returns false, then the form is not submitted.
+    :returns: Whether the form is valid or not. If it returns false, then the form is not submitted.
 
 
 
