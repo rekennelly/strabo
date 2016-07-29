@@ -85,9 +85,9 @@ function activate_buttons($div){
     activate_file_upload_button($div)
 }
 function $new_img_div(){
-    var $retdiv = $("div.img-prototype").clone(true,true);
+    var $retdiv = $("div.img-model").clone(true,true);
     $retdiv.show();
-    $retdiv.removeClass("img-prototype");
+    $retdiv.removeClass("img-model");
     $retdiv.addClass("rootimg");
 
     //sets today's date as default
