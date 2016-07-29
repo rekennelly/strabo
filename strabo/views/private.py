@@ -107,10 +107,11 @@ def interest_points_post():
         request.form.getlist('month')
     ))]
 
-    private_helper.make_interest_point(request.form.get("ip_id"),imgs,
+    ip = private_helper.make_interest_point(request.form.get("ip_id"),imgs,
         request.form['title'],request.form['description'],request.form['geojson'],
         request.form['layer'],request.form['icon'])
 
+    db.session.add(ip)
     db.session.commit()
 
     return redirect(url_for('interest_points_table'))

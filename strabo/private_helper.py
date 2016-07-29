@@ -16,7 +16,7 @@ from strabo import straboconfig
 
 def make_interest_point(form_ip_id,images,form_title,form_body,form_geo_obj,form_layer,form_icon):
 
-    ip = db.session.query(schema.InterestPoints).get(form_ip_id) if form_ip_id else schema.InterestPoints()
+    ip = db.session.query(schema.InterestPoints).get(form_ip_id) if form_ip_id != "" else schema.InterestPoints()
 
     ip.title = form_title
     ip.descrip_body = form_body
@@ -44,11 +44,12 @@ def make_date(form_year,form_month):
 
     return  datetime.date(year,month,default_day)
 
+
 def make_image(ip_idx,form_image_id,form_file_obj,form_descrip,form_year,form_month):
     '''
     if a flask.files object is passed in, then
     '''
-    image = db.session.query(schema.Images).get(form_image_id) if form_image_id else schema.Images()
+    image = db.session.query(schema.Images).get(form_image_id) if form_image_id != "" else schema.Images()
 
     image.taken_at = make_date(form_year,form_month)
     image.description = form_descrip
