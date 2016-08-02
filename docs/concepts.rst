@@ -30,3 +30,20 @@ interface.
 The larger of the two is stored in
 ``static/mobile_imgs``, their maximum dimensions are specified by the ``MOBILE_SERV_MAX_SIZE``
 configuration property, and they are displayed the photoswipe carousel.
+
+Info Passing
+------------
+
+Story of interest point data passing around between client and server:
+
+Data permanently stored in database specified by: schema.py
+
+User navigates to /admin/upload_ips ->
+:py:func:`strabo.views.private.upload_ips` using :py:func:`strabo.views.private.show_ips_upload_form`
+
+
+
+
+private.py
+
+upload_ips.html

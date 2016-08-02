@@ -1,16 +1,12 @@
 '''
 Assigns entries in the table accoring to text input from the admin interface.
 '''
-import werkzeug
-import os
 import datetime
 
 from strabo import schema
 from strabo import image_processing
-from strabo import utils
 from strabo import file_writing
 
-from strabo import app
 from strabo import db
 from strabo import straboconfig
 
@@ -44,10 +40,9 @@ def make_date(form_year,form_month):
 
     return  datetime.date(year,month,default_day)
 
-
 def make_image(ip_idx,form_image_id,form_file_obj,form_descrip,form_year,form_month):
     '''
-    if a flask.files object is passed in, then
+    If a flask.files object is passed in, then
     '''
     image = db.session.query(schema.Images).get(form_image_id) if form_image_id != "" else schema.Images()
 
@@ -61,3 +56,14 @@ def make_image(ip_idx,form_image_id,form_file_obj,form_descrip,form_year,form_mo
         image.width,image.height = image_processing.get_dimentions(image.filename)
 
     return image
+
+def make_ordered_images(ids,files,descrips,years,months):
+    '''
+    Takes in lists of form objects. Stores the index of the image from the form list into
+    schema.Images.ip_order_idx field as it goes
+    through so the database remembers the order in the form.
+    '''
+    form_descrips = zip(ids,files,descrips,years,months)
+
+    return [make_image(ip_idx,*img_args)
+                for ip_idx,img_args in enumerate(form_descrips)]

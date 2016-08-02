@@ -226,12 +226,12 @@ Also handles almost everything to do with the the dynamic image loading form.
 ``templates/private/upload_img_prototype.html'' contains a hidden div which serves as a
 prototype for the image upload interface. When divs are added, it clones the div,
 removes the prototype class (so that it is differentiable from the actual prototype)
-and hidden attribute (so that it shows up on the screen), and adds event handlers for
-the buttons.
+and hidden attribute (so that it shows up on the screen), changes the date placeholder to the current day
+and adds event handlers for the buttons.
 
 
 As the image form divs are added, they form a linked list, which, since it is html,
-takes the form of a list of divs::
+takes the form of a sequence of divs::
 
 Each add and delete button has its own event handler, which has knowledge of its parent
 div. Pressing the Delete button deletes the current img div and pressing the Add Below

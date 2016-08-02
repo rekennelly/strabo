@@ -62,14 +62,14 @@ function delete_div($rootdiv){
     $rootdiv.remove()
 }
 function activate_add_button($div){
-    var $next_add_button = $div.children("button.add-button");
-    $next_add_button.click(function(){
+    var $add_button = $div.children("button.add-button");
+    $add_button.click(function(){
         expand_div($div)
     })
 }
 function activate_del_button($div){
-    var $next_del_button = $div.children("button.del-button");
-    $next_del_button.click(function(){
+    var $del_button = $div.children("button.del-button");
+    $del_button.click(function(){
         delete_div($div)
     })
 }

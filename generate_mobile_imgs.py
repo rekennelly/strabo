@@ -1,9 +1,8 @@
 '''
 Overwrites thumbnails and mobile_imgs files with files of size specified in
-configuration.
+configuration values THUMBNAIL_MAX_SIZE and MOBILE_SERV_MAX_SIZE, respectively.
 
-Use whenever the dimentions specified by THUMBNAIL_MAX_SIZE or MOBILE_SERV_MAX_SIZE
-have been changed.
+Use whenever the dimentions specified by either of those values have been changed.
 '''
 
 import os
