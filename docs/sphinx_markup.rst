@@ -12,7 +12,7 @@ While in the ``strabo/docs/`` folder...
 3. Save changes.
 4. Type into terminal: ``make html``. (You can also type ``make clean`` to remove all of the previous _build files and ``make html`` to remake them. This is useful if changes aren't showing up, or if you have deleted a file.)
 5. Visit the page on your local server to see the documentation in HTML. The local documentation will be in ``/_build/html/index.html``.
-6. If everying looks right, push your changes to the master branch on GitHub.
+6. If everything looks right, push your changes to the master branch on GitHub.
 7. Read the Docs should automatically update the documentation. Check it `here <http://strabo.readthedocs.io/en/latest/>`_.
 8. Ta-da!
 

@@ -2,7 +2,10 @@
 Overwrites thumbnails and mobile_imgs files with files of size specified in
 configuration values THUMBNAIL_MAX_SIZE and MOBILE_SERV_MAX_SIZE, respectively.
 
-Use whenever the dimentions specified by either of those values have been changed.
+Use whenever the dimensions specified by either of those values have been changed.
+
+This might happen if the size of the images turn out to be too large and slow for certain devices,
+or if they are too small to see some detail.
 '''
 
 import os

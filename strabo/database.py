@@ -5,13 +5,11 @@ In future versions, this will handle all database interactions,
 including gets, sets, updates.
 '''
 
-import os
 import sqlalchemy
 
 from strabo import schema
 from strabo import file_writing
 
-from strabo import app
 from strabo import db
 
 def delete_ip(id):
@@ -36,12 +34,12 @@ def delete_image(id):
     db.session.commit()
 
 
-def to_dictonary(sql_row):
+def jsonifyable_row(sql_row):
     return {col.name:getattr(sql_row,col.name) for col in sql_row.__class__.__table__.columns}
 
-def to_dict_list(table_data):
-    return [to_dictonary(row) for row in table_data]
-    
+def jsonifyable_rows(sql_rows):
+    return [jsonifyable_row(row) for row in sql_rows]
+
 #helper functions, currently unused
 '''
 def get_row_by_id(table,id):

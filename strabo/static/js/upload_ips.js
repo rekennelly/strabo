@@ -43,7 +43,7 @@ function checkForm(form){
 }
 function showUploadImg($div,input) {
     /*
-    Reads input and
+    Reads image from input and displays it on the div's preview image element.
     */
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -53,18 +53,23 @@ function showUploadImg($div,input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
-function expand_div($rootdiv){
+function enable_file_upload_preview($div){
+    $div.find('.img-input').change(function(){
+        showUploadImg($div,this);
+    });
+}
+function add_new_after($div){
     var $nextdiv = $new_img_div();
-    $rootdiv.after($nextdiv);
+    $div.after($nextdiv);
     return $nextdiv;
 }
-function delete_div($rootdiv){
-    $rootdiv.remove()
+function delete_div($div){
+    $div.remove()
 }
 function activate_add_button($div){
     var $add_button = $div.children("button.add-button");
     $add_button.click(function(){
-        expand_div($div)
+        add_new_after($div)
     })
 }
 function activate_del_button($div){
@@ -73,17 +78,16 @@ function activate_del_button($div){
         delete_div($div)
     })
 }
-function activate_file_upload_button($div){
-    $div.find('.img-input').change(function(){
-        showUploadImg($div,this);
-    });
-}
 function activate_buttons($div){
     activate_add_button($div)
     activate_del_button($div)
-    activate_file_upload_button($div)
+    enable_file_upload_preview($div)
 }
 function $new_img_div(){
+    /*
+    Clones a new div from the img-model and turns it into a JQuery that will correctly
+    display the image form. Does not add it to the DOM.
+    */
     var $retdiv = $("div.img-model").clone(true,true);
     $retdiv.show();
     $retdiv.removeClass("img-model");
@@ -97,7 +101,7 @@ function $new_img_div(){
     return $retdiv;
 }
 function make_img_div(img,$last_div){
-    var $img_div = expand_div($last_div)
+    var $img_div = add_new_after($last_div)
     $img_div.find('[name="month"]').val(img.month);
     $img_div.find('[name="year"]').val(img.year);
     $img_div.find('[name="img-descrip"]').val(img.description);
@@ -114,7 +118,7 @@ function initalize_edit_images(){
 }
 $(document).ready(function(){
     $("#root-add-button").click(function(){
-        expand_div($("#img-start"))
+        add_new_after($("#img-start"))
     })
     initalize_edit_images();
 });

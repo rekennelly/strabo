@@ -216,19 +216,31 @@ Then you can just add an InputField which knows about that message.
     :param form: Special builtin form object.
     :returns: Whether the form is valid or not. If it returns false, then the form is not submitted.
 
+Upload Preview
+~~~~~~~~~~~~~~
 
+.. js:function:: showUploadImg($div,input)
+
+    :param JQuery $div: Image upload form div.
+    :param DOM-object input: Image input div.
+
+    Reads the image from ``input`` and displays it on the on the $div's preview element.
+
+.. js:function:: enable_file_upload_preview($div)
+
+    When the file input field is changed, by the user uploading and image, it
+    uses :js:func:`showUploadImg` to display that image.
 
 Dynamic Image Uploading
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 Also handles almost everything to do with the the dynamic image loading form.
 
-``templates/private/upload_img_prototype.html'' contains a hidden div which serves as a
+``templates/private/upload_img_model.html'' contains a hidden div which serves as a
 prototype for the image upload interface. When divs are added, it clones the div,
 removes the prototype class (so that it is differentiable from the actual prototype)
 and hidden attribute (so that it shows up on the screen), changes the date placeholder to the current day
 and adds event handlers for the buttons.
-
 
 As the image form divs are added, they form a linked list, which, since it is html,
 takes the form of a sequence of divs::
@@ -236,3 +248,33 @@ takes the form of a sequence of divs::
 Each add and delete button has its own event handler, which has knowledge of its parent
 div. Pressing the Delete button deletes the current img div and pressing the Add Below
 button will insert another image form in between it and the next div.
+
+
+.. js:function:: $new_img_div()
+
+    Clprototypeones a new div from the img-model and turns it into a JQuery that will correctly
+    display the image form. Does not add it to the DOM.
+
+    Notably, it sets the date placeholder so that it displays the default upload date (today).
+    The mechanics of adding the default to the database happens in :py:func:`strabo.private_helper.make_date`.
+
+.. js:function:: initalize_edit_images()
+
+    Purpose: Allows editing of interest point images.
+
+    Global Input: ``ip_images``, a javascript object passed in by server from a jinja
+    template in upload_ips.html. Is a list of objects with attributes corresponding to
+    the columns in the :py:class:`strabo.schema.Images` plus ``month`` and ``year`` attributes pulled from
+    the taken_at column.
+
+    Requirement: Any parts of the form should be submitted identically to how they were first uploaded.
+
+    Creates and displays a list of image form divs representing the images
+    described by ip_images.
+
+
+
+
+
+
+..

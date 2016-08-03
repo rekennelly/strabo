@@ -2,6 +2,7 @@
 Assigns entries in the table accoring to text input from the admin interface.
 '''
 import datetime
+import copy
 
 from strabo import schema
 from strabo import image_processing
@@ -67,3 +68,11 @@ def make_ordered_images(ids,files,descrips,years,months):
 
     return [make_image(ip_idx,*img_args)
                 for ip_idx,img_args in enumerate(form_descrips)]
+
+def get_ordered_images(interest_point):
+    '''
+    Returns a list of images that follow the order they were submitted in.
+    '''
+    ord_imgs = copy.copy(interest_point.images)
+    ord_imgs.sort(key=lambda img: img.ip_order_idx)
+    return ord_imgs

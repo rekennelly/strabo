@@ -26,7 +26,7 @@ Updating set_database.py:
 * set_database.py
     * add your new feature inputs into the database
 
-In order to edit the admin interface see admin_edit.md
+In order to edit the admin interface to accomidate this change see :ref:`admin-interface-section`.
 
 
 Database file structure
@@ -49,6 +49,8 @@ Database file structure
         * Outputs should be useable by flask or the database
         * Side affects should probably be somewhere else
 
+
+.. _admin-interface-section:
 
 Adding Features to the Admin Interface
 --------------------------------------

@@ -88,9 +88,8 @@ def show_ips_upload_form(interest_point):
     my_ip_json = geojson_wrapper.to_geo_obj(interest_point.geojson_object) if interest_point.id else False
 
     #gets images that the current interest point already owns
-    ip_images = interest_point.images
-    ip_images.sort(key=lambda img: img.ip_order_idx)
-    jsonifiable_ip_images = [utils.concatenate_dicts(database.to_dictonary(img),{'month':img.taken_at.month,'year':img.taken_at.year}) for img in ip_images]
+    ip_images = private_helper.get_ordered_images(interest_point.images)
+    jsonifiable_ip_images = [utils.concatenate_dicts(database.jsonifyable_row(img),{'month':img.taken_at.month,'year':img.taken_at.year}) for img in ip_images]
 
     return render_template("private/upload_ips.html",
         geo_features=geo_features,
