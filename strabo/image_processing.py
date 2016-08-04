@@ -20,6 +20,10 @@ def save_shrunken_image(image_path,thumbnail_path,max_dim):
     Uses the Python Imaging Library to save a smaller image of the same scale but
     with maximum dimentions specified by max_dim using the
     `thumbnail method <http://pillow.readthedocs.io/en/3.3.x/reference/Image.html?highlight=thumbnail>`_
+
+    :param string image_path: File path (including filename) of source image (must be a valid image file)
+    :param string thumbnail_path: File path (including filename) of location image will be saved.
+    :param max_dim: (width,height) tuple specifiying maximum dimentions for output image. 
     '''
     # import desired image from /uploads folder
     with Image.open(image_path) as img:
