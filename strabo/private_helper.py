@@ -31,7 +31,7 @@ def make_date(form_year,form_month):
 
     :param string form_month: Month value, follows same format as year.
 
-    If month and year are valid values,returns date with specied month and year.
+    If month and year are valid values,returns a date with specied month and year.
 
     If not, then it uses today's date as a default.
     '''
@@ -43,7 +43,9 @@ def make_date(form_year,form_month):
 
 def make_image(ip_idx,form_image_id,form_file_obj,form_descrip,form_year,form_month):
     '''
-    If a flask.files object is passed in, then
+    Helper for :py:func:`strabo.private_helper.make_ordered_images`.
+
+    Stores information from form,
     '''
     image = db.session.query(schema.Images).get(form_image_id) if form_image_id != "" else schema.Images()
 
@@ -71,7 +73,7 @@ def make_ordered_images(ids,files,descrips,years,months):
 
 def get_ordered_images(interest_point):
     '''
-    Returns a list of images that follow the order they were submitted in.
+    Returns a list of images in the order they were submitted in on the upload form.
     '''
     ord_imgs = copy.copy(interest_point.images)
     ord_imgs.sort(key=lambda img: img.ip_order_idx)

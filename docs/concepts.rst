@@ -3,6 +3,8 @@ Concepts
 
 Descriptions of implementation concepts which span several files.
 
+.. _img_management:
+
 Image Management
 ----------------
 

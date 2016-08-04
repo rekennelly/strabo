@@ -1,6 +1,10 @@
 Editing Workflow
 ================
 
+
+THIS IS ALL OUT OF DATE. USE ONLY AS A REFERENCE TO REWRITE THIS FILE.
+
+
 Changing the Database
 ----------------------
 

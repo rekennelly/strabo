@@ -219,17 +219,18 @@ Then you can just add an InputField which knows about that message.
 Upload Preview
 ~~~~~~~~~~~~~~
 
+.. js:function:: enable_file_upload_preview($div)
+
+    When the file input field is changed, by the user uploading and image, it
+    uses :js:func:`showUploadImg` to display that image.
+
 .. js:function:: showUploadImg($div,input)
 
     :param JQuery $div: Image upload form div.
     :param DOM-object input: Image input div.
 
     Reads the image from ``input`` and displays it on the on the $div's preview element.
-
-.. js:function:: enable_file_upload_preview($div)
-
-    When the file input field is changed, by the user uploading and image, it
-    uses :js:func:`showUploadImg` to display that image.
+    
 
 Dynamic Image Uploading
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -252,7 +253,7 @@ button will insert another image form in between it and the next div.
 
 .. js:function:: $new_img_div()
 
-    Clprototypeones a new div from the img-model and turns it into a JQuery that will correctly
+    Clones a new div from the img-model and turns it into a JQuery that will correctly
     display the image form. Does not add it to the DOM.
 
     Notably, it sets the date placeholder so that it displays the default upload date (today).
