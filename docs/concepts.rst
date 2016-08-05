@@ -33,19 +33,22 @@ The larger of the two is stored in
 ``static/mobile_imgs``, their maximum dimensions are specified by the ``MOBILE_SERV_MAX_SIZE``
 configuration property, and they are displayed the photoswipe carousel.
 
-Info Passing
-------------
+Interest Point Display
+----------------------
 
-Story of interest point data passing around between client and server:
+How interest points move from the database to being displayed by the browser.
 
 Data permanently stored in database specified by: schema.py
 
-User navigates to /admin/upload_ips ->
-:py:func:`strabo.views.private.upload_ips` using :py:func:`strabo.views.private.show_ips_upload_form`
+When an interest point is fetched from the database to be displayed by leaflet,
+in a views route (:py:func:`strabo.views.private.show_ips_upload_form` or :py:func:`strabo.views.public.map`),
+it's converted to a geojson object. The geojson string is converted into an
+object, and the entries in the row are all moved into the properties attribute of
+the newly created object. See :py:func:`strabo.geojson_wrapper.make_other_attributes_properties`
+for more details.
 
+A list of these objects representing all the interest points for display
+is assigned to a javascript variable in a jinja template (map.html and upload_ips.html).
 
-
-
-private.py
-
-upload_ips.html
+Now, this list of geojson objects is converted into a Leaflet FeatureGroup,
+which many functions interact with to display the interest points.
