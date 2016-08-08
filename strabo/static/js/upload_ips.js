@@ -67,13 +67,13 @@ function delete_div($div){
     $div.remove()
 }
 function activate_add_button($div){
-    var $add_button = $div.children("button.add-button");
+    var $add_button = $div.find("button.add-button");
     $add_button.click(function(){
         add_new_after($div)
     })
 }
 function activate_del_button($div){
-    var $del_button = $div.children("button.del-button");
+    var $del_button = $div.find("button.del-button");
     $del_button.click(function(){
         delete_div($div)
     })
