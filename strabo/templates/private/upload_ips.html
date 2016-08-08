@@ -4,14 +4,10 @@
     {{ super() }}
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
     <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.3/leaflet.draw.css' rel='stylesheet' />
+    <link href='/static/private_styles/upload_ips.css' rel='stylesheet' />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <style>
-    .form-error {
-        color:#ff0000;
-        font-style: italic;
-    }
-    </style>
+
     <script>
         var straboconfig = {{ straboconfig|tojson }};
         var features = {{ geo_features|tojson }};
@@ -88,8 +84,13 @@
 
           <br><br>
         <div class="row">
+            <label for="description">Images:</label><br>
             <div class="col-md-8">
-            <button type="button" class="add-button" id="root-add-button" >Add Image Below</button>
+
+            <div class="button-space">
+                <button type="button" class="add-button" id="root-add-button" >Add Image Below</button>
+            </div>
+
             <div id="img-start">
 
             </div>

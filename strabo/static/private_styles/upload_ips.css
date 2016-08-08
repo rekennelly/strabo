@@ -1,0 +1,19 @@
+.button-space{
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+.img-section{
+    padding: 1em;
+
+    border-style: double;
+    border-width:medium;
+    border-radius: 5px;
+}
+.form-error {
+    color:#ff0000;
+    font-style: italic;
+}
+.float-left{
+    position: relative;
+    float:right;
+}
