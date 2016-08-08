@@ -15,12 +15,14 @@ from strabo import db
 def delete_ip(id):
     '''Deletes ip refrenced by id.
 
-    All images associated with the ip are unaffected, they simply lose their connection with the interest_point.'''
+    All images associated with the ip are deleted!'''
     idquery = db.session.query(schema.InterestPoints).filter_by(id=id)
     ip = idquery.one()
 
-    ip.images = []#clears image ForeignKeys
-    db.session.commit()
+    for img in ip.images:
+        file_writing.delete_image_files(img.filename)
+
+    db.session.query(schema.Images).filter_by(interest_point_id=ip.id).delete()
 
     idquery.delete()
     db.session.commit()
