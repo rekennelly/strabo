@@ -4,11 +4,6 @@ This file contains utilities.
 
 import os
 
-def safe_pos_int_conv(inputstr):
-    '''helps forms submission be robust by returning 1 when empty string is passed
-    in instead of a number '''
-    return  int(inputstr) if not inputstr == '' else 1
-
 def extract_name_extension(filename):
     '''Splits filename into name and extension.
 

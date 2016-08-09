@@ -19,7 +19,10 @@ def delete_ip(id):
     idquery = db.session.query(schema.InterestPoints).filter_by(id=id)
     ip = idquery.one()
 
-    ip.images = []
+    for img in ip.images:
+        file_writing.delete_image_files(img.filename)
+
+    db.session.query(schema.Images).filter_by(interest_point_id=ip.id).delete()
 
     idquery.delete()
     db.session.commit()
