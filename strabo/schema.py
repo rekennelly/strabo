@@ -50,10 +50,6 @@ class Images(Base,DataType):
     taken_at = Column(DateTime)
     '''Contatins month and year of the time the image was taken.'''
 
-    ip_order_idx = Column(Integer)
-    '''Contains the index of the image in the interest_point image form list.
-    Used to order the images for the interst point.'''
-
     interest_point_id = Column(Integer, ForeignKey('interest_points.id'))
     '''Enables many to one relationship with InterestPoints.'''
 
