@@ -7,13 +7,22 @@ import copy
 from strabo import schema
 from strabo import image_processing
 from strabo import file_writing
+from strabo import database
 
 from strabo import db
 from strabo import straboconfig
 
 def make_interest_point(form_ip_id,images,form_title,form_body,form_geo_obj,form_layer,form_icon):
+    '''
+    Creates interest point (or if form_ip_id is defined, gets old one from database), and fills it in
+    with inputs from form.
+
+    Deletes image files which are being replaced.
+    '''
 
     ip = db.session.query(schema.InterestPoints).get(form_ip_id) if form_ip_id != "" else schema.InterestPoints()
+
+    database.delete_unrefrenced_images(ip.images,images)
 
     ip.title = form_title
     ip.descrip_body = form_body
@@ -45,7 +54,7 @@ def make_image(ip_idx,form_image_id,form_file_obj,form_descrip,form_year,form_mo
     '''
     Helper for :py:func:`strabo.private_helper.make_ordered_images`.
 
-    Stores information from form,
+    Stores information from form, deletes image files if they are being replaced.
     '''
     image = db.session.query(schema.Images).get(form_image_id) if form_image_id != "" else schema.Images()
 
@@ -54,6 +63,9 @@ def make_image(ip_idx,form_image_id,form_file_obj,form_descrip,form_year,form_mo
     image.ip_order_idx = ip_idx
 
     if form_file_obj:
+        if image.filename:
+            file_writing.delete_image_files(image.filename)
+
         image.filename = file_writing.make_filename(form_file_obj.filename)
         file_writing.save_image_files(form_file_obj,image.filename)
         image.width,image.height = image_processing.get_dimentions(image.filename)
@@ -65,6 +77,8 @@ def make_ordered_images(ids,files,descrips,years,months):
     Takes in lists of form objects. Stores the index of the image from the form list into
     schema.Images.ip_order_idx field as it goes
     through so the database remembers the order in the form.
+
+    Deletes replaced image files.
     '''
     form_descrips = zip(ids,files,descrips,years,months)
 

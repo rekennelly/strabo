@@ -36,6 +36,12 @@ def delete_image(id):
     db.session.commit()
 
 
+def delete_unrefrenced_images(old_images,images):
+    '''deletes images in old_images which are not in images'''
+    for old_img in old_images:
+        if all(old_img.id != img.id for img in images):
+            delete_image(old_img.id)
+
 def jsonifyable_row(sql_row):
     return {col.name:getattr(sql_row,col.name) for col in sql_row.__class__.__table__.columns}
 
