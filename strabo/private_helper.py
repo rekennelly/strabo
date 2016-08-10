@@ -50,7 +50,7 @@ def make_date(form_year,form_month):
 
     return  datetime.date(year,month,default_day)
 
-def make_image(ip_idx,form_image_id,form_file_obj,form_descrip,form_year,form_month):
+def make_image(ip_idx,form_image_id,form_file,form_descrip,form_year,form_month):
     '''
     Helper for :py:func:`strabo.private_helper.make_ordered_images`.
 
@@ -62,12 +62,12 @@ def make_image(ip_idx,form_image_id,form_file_obj,form_descrip,form_year,form_mo
     image.description = form_descrip
     image.ip_order_idx = ip_idx
 
-    if form_file_obj:
+    if form_file:
         if image.filename:
             file_writing.delete_image_files(image.filename)
 
-        image.filename = file_writing.make_filename(form_file_obj.filename)
-        file_writing.save_image_files(form_file_obj,image.filename)
+        image.filename = file_writing.make_filename(form_file.filename)
+        file_writing.save_image_files(form_file,image.filename)
         image.width,image.height = image_processing.get_dimentions(image.filename)
 
     return image
