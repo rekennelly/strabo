@@ -4,6 +4,7 @@ var locateIcon = L.icon({
     iconSize: [20,20]
 });
 
+// Create custom leaflet icons
 var ColorIcon = L.Icon.extend({
     options: {
         shadowUrl: '/static/MapPinShadow.png',

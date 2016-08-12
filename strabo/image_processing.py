@@ -14,7 +14,6 @@ def allowed_file(filename):
     '''Checks whether the filename has an extension that is listed in ALLOWED_EXTENSIONS config value.'''
     return utils.get_extension(filename) in straboconfig['ALLOWED_EXTENSIONS']
 
-# This helper function uses PIL to make a new thumbnail of a given image
 def save_shrunken_image(image_path,thumbnail_path,max_dim):
     '''
     Uses the Python Imaging Library to save a smaller image of the same scale but
@@ -23,19 +22,18 @@ def save_shrunken_image(image_path,thumbnail_path,max_dim):
 
     :param string image_path: File path (including filename) of source image (must be a valid image file)
     :param string thumbnail_path: File path (including filename) of location image will be saved.
-    :param max_dim: (width,height) tuple specifiying maximum dimentions for output image. 
+    :param max_dim: (width,height) tuple specifiying maximum dimentions for output image.
     '''
     # import desired image from /uploads folder
     with Image.open(image_path) as img:
         # create a thumbnail from desired image
-        # the thumbnail will have dimentions of the same ratio as before, capped by
-        # the limiting dimention of max_dim
+        # the thumbnail will have dimensions of the same ratio as before, capped by
+        # the limiting dimension of max_dim
         img.thumbnail(max_dim,Image.ANTIALIAS)
         # save the image under a new filename in thumbnails directory
         img.save(thumbnail_path)
 
-#get dimentions of item in uploads folder with the given filename
-def get_dimentions(filename):
+def get_dimensions(filename):
     '''Get dimentions of image with ``filename`` in ``static/uploads/`` folder.'''
     with Image.open(os.path.join(straboconfig['UPLOAD_FOLDER'],filename)) as im:
         return im.size#width, height tuple

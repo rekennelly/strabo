@@ -28,8 +28,9 @@ def make_interest_point(form_ip_id,images,form_title,form_body,form_geo_obj,form
     ip.descrip_body = form_body
     ip.geojson_object = form_geo_obj
     ip.layer = straboconfig["REVERSE_LAYER_FIELDS"][form_layer]
-    ip.icon = form_icon
+    ip.icon = form_icon + ".png"
     ip.images = images
+
     return ip
 
 def make_date(form_year,form_month):
@@ -54,13 +55,15 @@ def make_image(ip_idx,form_image_id,form_file,form_descrip,form_year,form_month)
     '''
     Helper for :py:func:`strabo.private_helper.make_ordered_images`.
 
-    Stores information from form, deletes image files if they are being replaced.
+    If a flask.files object (see `here <http://flask.pocoo.org/docs/0.11/patterns/fileuploads/>`_ for more information)
+    is passed in, then it saves the new file and stores the new information in the database.
+    If the image row already stored information about an old image (i.e. the image was edited), then that old image is deleted.
     '''
     image = db.session.query(schema.Images).get(form_image_id) if form_image_id != "" else schema.Images()
 
     image.taken_at = make_date(form_year,form_month)
-    image.description = form_descrip
     image.ip_order_idx = ip_idx
+    image.description = form_descrip
 
     if form_file:
         if image.filename:
@@ -68,7 +71,7 @@ def make_image(ip_idx,form_image_id,form_file,form_descrip,form_year,form_month)
 
         image.filename = file_writing.make_filename(form_file.filename)
         file_writing.save_image_files(form_file,image.filename)
-        image.width,image.height = image_processing.get_dimentions(image.filename)
+        image.width,image.height = image_processing.get_dimensions(image.filename)
 
     return image
 

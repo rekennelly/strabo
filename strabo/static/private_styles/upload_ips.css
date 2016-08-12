@@ -4,10 +4,6 @@
 }
 .img-section{
     padding: 1em;
-
-    border-style: double;
-    border-width:medium;
-    border-radius: 5px;
 }
 .form-error {
     color:#ff0000;

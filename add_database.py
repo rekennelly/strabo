@@ -63,19 +63,17 @@ def make_interest_point(image_ids,form_title,form_body,form_geo_obj,form_layer,f
     return ip
 
 #returns image database object
-def make_image(form_file_obj,form_descrip,year,month):
+def make_image(form_file,form_descrip,year,month):
     img = schema.Images()
-    private_helper.fill_image(img,form_file_obj,form_descrip,year,month)
+    private_helper.fill_image(img,form_file,form_descrip,year,month)
     return img
 
 def add_database():
     utils.fill_dict_with(straboconfig,config.get_config_info())
 
-
     geo_obj1 = '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-122.63034939765929,45.48205499198348]}}'
     geo_obj2 = '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-122.630397,45.481851]}}'
     geo_obj3 = '{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[-122.63245,45.48236]}}'
-
 
     img1 = make_image(mock_flask_file_obj("test_images","download.jpg"),"bird","1998","10")
     img2 = make_image(mock_flask_file_obj("test_images","download1.jpg"),"flower","1989","10")

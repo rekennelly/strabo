@@ -41,6 +41,7 @@ def index():
 def login():
     return render_template("/public/login.html",**straboconfig)
 
+
 ###
 ###
 ### Views to upload interest points to db

@@ -11,7 +11,7 @@ function init_map(){
     add_tile_to(drawMap);
 
 
-    var all_layers_group = make_all_layers_group(features);
+    var all_layers_group = L.geoJson(features);
     set_styles(all_layers_group);
     bind_popups(all_layers_group);
     all_layers_group.addTo(drawMap);
@@ -20,19 +20,16 @@ function init_map(){
 function set_draw_controls(drawMap,drawnItems){
     /*
     Sets controls which allow one to add a polygon or a point. The control mechanics
-    have two.
+    (options and events) conspire to create an editing enviornment where only
+    one feature can ever be placed on the map in one form. The form control the ensures
+    that at least one feature was placed, so that exactly one feature will be submitted
+    with the interest point, as desired.
     */
-    // Initialise the draw control and pass it the FeatureGroup of editable layers
 
     var shapeColorInit = '#2397EB';
-
     var addControl = new L.Control.Draw({
         draw : {
-          polyline: {
-            shapeOptions: {
-              color: shapeColorInit
-            }
-          },
+          polyline: false,
           polygon: {
             shapeOptions: {
               color: shapeColorInit
@@ -90,7 +87,7 @@ function set_draw_controls(drawMap,drawnItems){
         }
     })
 }
-function init_geojson_setter(){
+function init_geojson_setter(drawnItems){
     if (edit_json){
         shape_drawn = true;
         shapeLayer = L.geoJson(edit_json).getLayers()[0];
@@ -105,7 +102,6 @@ $(function(){
 
     var drawnItems = new L.FeatureGroup();
     drawMap.addLayer(drawnItems);
-
+    init_geojson_setter(drawnItems)
     set_draw_controls(drawMap,drawnItems)
-    init_geojson_setter()
 });
