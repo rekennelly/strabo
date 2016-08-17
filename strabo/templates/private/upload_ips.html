@@ -63,7 +63,7 @@
           <div class="form-group">
              <!-- to make this look better, use bootstrap-select library. -->
             <label for="icon">Point Icon:</label><br>
-            <select class="form-control icon-menu" name="icon">
+            <select class="form-control icon-menu" name="icon" id="icon-sel">
                 <option>Select One</option>
                 {% for icon_name in MAP_ICONS %}
                     <option {%if icon_name == interest_point.icon%}selected{%endif%}>

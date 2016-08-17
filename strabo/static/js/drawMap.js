@@ -1,6 +1,8 @@
 var shape_drawn = false;
 var shapeLayer;
 
+var def_icon = new L.Icon.Default();
+
 function init_map(){
     /*
     Creates and configures the admin map and adds the interest points to it.
@@ -35,18 +37,16 @@ function set_draw_controls(drawMap,drawnItems){
               color: shapeColorInit
             }
           },
+          marker:{
+              icon:def_icon
+          },
           circle: false,
           rectangle: false
         },
 
 
         edit: {
-          featureGroup: drawnItems,
-          edit: {
-            selectedPathOptions: {
-              color: 'red'
-            }
-          }
+            featureGroup: drawnItems,
         }
     });
 
@@ -91,6 +91,29 @@ function set_draw_controls(drawMap,drawnItems){
             drawMap.addControl(addControl);
         }
     })
+
+    $("#icon-sel").change(function() {
+        set_add_control_icon(addControl)
+        set_marker_icon()
+    });
+}
+function icon_sel(){
+    var sel_icon_filename = $("#icon-sel :selected").text().trim() + ".png";
+    return  (sel_icon_filename in icon_objs) ? icon_objs[sel_icon_filename] : def_icon;
+}
+function set_add_control_icon(addControl){
+    addControl.setDrawingOptions({
+        marker: {
+            icon: icon_sel()
+        }
+    });
+}
+function set_marker_icon(){
+    if(shape_drawn){
+        if(shapeLayer instanceof L.Marker){
+            shapeLayer.setIcon(icon_sel());
+        }
+    }
 }
 function init_geojson_setter(drawnItems){
     if (edit_json){
@@ -98,6 +121,7 @@ function init_geojson_setter(drawnItems){
         shapeLayer = L.geoJson(edit_json).getLayers()[0];
         shapeLayer.addTo(drawnItems);
         shapeLayer.bindPopup("You are editing this point.").openPopup()
+        set_marker_icon()
     }
     $('#upload-btn').click(function (e) {
         var JSONobject = shape_drawn ? JSON.stringify(shapeLayer.toGeoJSON()) : "";
