@@ -133,7 +133,7 @@ def get_config_info():
     }
 
     #needs to correspond with popup view size
-    config_info["THUMBNAIL_MAX_SIZE"] = (300,250)#max_width, max_height
+    config_info["THUMBNAIL_MAX_SIZE"] = (500,500)#max_width, max_height
     #larger images will make for slower animations and upload when navigating photoswipe
     config_info["MOBILE_SERV_MAX_SIZE"] = (1760,1500)#max_width, max_height
 
