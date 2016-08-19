@@ -16,7 +16,6 @@ html, body {
 .leaflet-control.leaflet-compass {
   float: right;
 }
-}
 
 /* on smaller screen, change the appearance of the icon */
 @media (max-width: 767px){
