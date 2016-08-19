@@ -2,6 +2,7 @@ var shape_drawn = false;
 var shapeLayer;
 
 var def_icon = new L.Icon.Default();
+var def_poly_color = '#2397EB';
 
 function init_map(){
     /*
@@ -28,13 +29,12 @@ function set_draw_controls(drawMap,drawnItems){
     with the interest point, as desired.
     */
 
-    var shapeColorInit = '#2397EB';
     var addControl = new L.Control.Draw({
         draw : {
           polyline: false,
           polygon: {
             shapeOptions: {
-              color: shapeColorInit
+              color: def_poly_color
             }
           },
           marker:{
@@ -97,21 +97,42 @@ function set_draw_controls(drawMap,drawnItems){
         set_marker_icon()
     });
 }
-function icon_sel(){
-    var sel_icon_filename = $("#icon-sel :selected").text().trim() + ".png";
-    return  (sel_icon_filename in icon_objs) ? icon_objs[sel_icon_filename] : def_icon;
+function sel_text(){
+    return $("#icon-sel :selected").text().trim()
+}
+function def_selected(){
+    return sel_text() == "Select One";
+}
+function sel_idx(){
+    return straboconfig['REVERSE_COLOR_REP'][sel_text()]
+}
+function sel_icon(){
+    return def_selected() ? def_icon : icon_objs[sel_idx()]
+}
+function sel_hex_code(){
+    return def_selected() ? def_poly_color : straboconfig["COLOR_HEX"][sel_idx()]
 }
 function set_add_control_icon(addControl){
     addControl.setDrawingOptions({
         marker: {
-            icon: icon_sel()
-        }
+            icon: sel_icon()
+        },
+        polygon: {
+          shapeOptions: {
+            color: sel_hex_code()
+          }
+        },
     });
 }
 function set_marker_icon(){
     if(shape_drawn){
         if(shapeLayer instanceof L.Marker){
-            shapeLayer.setIcon(icon_sel());
+            shapeLayer.setIcon(sel_icon());
+        }
+        else{
+            shapeLayer.setStyle({
+                color:sel_hex_code()
+            });
         }
     }
 }
