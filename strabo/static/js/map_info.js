@@ -18,15 +18,19 @@ var ColorIcon = L.Icon.extend({
 
 var iconObjs = function(){
     var icon_objs = {};
-        straboconfig["MAP_ICONS"].forEach(function(icon_name){
-        icon_objs[icon_name] = new ColorIcon({iconUrl:'/static/map_icons/' + icon_name});
-    });
+    for (icon_name in straboconfig["COLOR_ICON"]){
+            icon_file = straboconfig["COLOR_ICON"][icon_name];
+            icon_objs[icon_name] = new ColorIcon({iconUrl:'/static/map_icons/' + icon_file});
+        }
+    //console.log(icon_objs)
     return icon_objs;
+
 }();
 
 // creates leaflet map object
 function make_map(map_container_id){
-    return L.map(map_container_id, {}).setView([straboconfig["LAT_SETTING"], straboconfig["LONG_SETTING"]], straboconfig["INITIAL_ZOOM"]);
+    var map = L.map(map_container_id, {}).setView([straboconfig["LAT_SETTING"], straboconfig["LONG_SETTING"]], straboconfig["INITIAL_ZOOM"]);
+    return map;
 }
 function add_tile_to(map){
     L.tileLayer(straboconfig["MAP_TILE_SRC"],straboconfig["LEAFLET_ATTRIBUTES"]).addTo(map);
@@ -34,7 +38,7 @@ function add_tile_to(map){
 function make_all_layers_group(interest_point_geojson_list){
     return L.geoJson(interest_point_geojson_list)
 }
-// sets icon object for points and stlying for zones
+// sets icon object for points and styling for zones
 function set_styles(all_layers_group){
     var all_layers = all_layers_group.getLayers();
 
@@ -44,13 +48,14 @@ function set_styles(all_layers_group){
     zones.forEach(function(zone){
         zone.setStyle({
               weight: 1,
-              //color: zone.feature.properties['marker-color'],
+              color: straboconfig["COLOR_HEX"][zone.feature.properties.style],
               dashArray: '',
               fillOpacity: 0.3
         });
     });
+
     points.forEach(function(point){
-        point.setIcon(iconObjs[point.feature.properties.icon]);
+        point.setIcon(icon_objs[point.feature.properties.style]);
     })
 }
 function place_overlays_on(all_layers_group,map){
@@ -67,9 +72,11 @@ function place_overlays_on(all_layers_group,map){
     }
     L.control.layers(null, overlays).addTo(map);
 }
-//makes it so that popups appear when clicked with the interest point database id
+
+// Popups with the name of the interest point appear when clicked
 function bind_popups(all_layers_group){
     var all_layers = all_layers_group.getLayers();
+
     all_layers.forEach(function(layer){
         layer.bindPopup(layer.feature.properties.name);
     });

@@ -11,18 +11,13 @@ the server.
 Also, if another file size is ever added (like extra tiny thumbnails or
 1200x1200px size for phones), then this can be used to generate those new images.
 '''
-
 import os
 
-from strabo import utils
-import config
 from strabo import file_writing
 from strabo import image_processing
 
 from strabo import straboconfig
 
-utils.fill_dict_with(straboconfig,config.get_config_info())
-
-for filename in os.listdir(os.path.realpath("./strabo/static/uploads/")):
+for filename in os.listdir(os.path.join(straboconfig['STRABO_ABS_PATH'],"strabo/static/uploads/")):
     if image_processing.allowed_file(filename):
         file_writing.save_shrunken_images_with(filename)

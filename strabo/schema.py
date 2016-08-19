@@ -36,8 +36,8 @@ class InterestPoints(Base,DataType):
     for more info). The layer corresponds to a name defined by the :ref:`layer_field_config`
     config value.'''
 
-    icon = Column(Text)
-    '''Filename of the mapicon stored in ``strabo/static/map_icons``'''
+    style = Column(Text)
+    '''Color identifier. Indexes COLOR_ICON, COLOR_REP, and COLOR_HEX config values'''
 
     images = relationship("Images",back_populates="interest_point")
     '''List of Images rows which correspond to the interest point'''

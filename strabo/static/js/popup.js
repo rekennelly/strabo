@@ -7,7 +7,7 @@ var imgs;
 
 //calculates thumbnail size from the full size image size passed in
 function get_shrunk_dim(img,max_dim){
-    ratio = Math.min(max_dim[0]/img.width,max_dim[1]/img.height);
+    ratio = Math.min($("#carouselholder").width()/img.width,$("#carouselholder").height()/img.height);
     shrink_ratio = Math.min(ratio,1.0)
     return {
         width:shrink_ratio*img.width,
@@ -16,30 +16,30 @@ function get_shrunk_dim(img,max_dim){
 }
 //this function generates the flickity cell corresponding to
 //the specific image object passed in
-function get_carosel_html(img){
+function get_carousel_html(img){
     var html = '<div class="carousel-cell padded-pic">';
     dim  = get_shrunk_dim(img,straboconfig["THUMBNAIL_MAX_SIZE"]);
     html += '<div class="vertical-center">';
-    html += '<img style="width:'+dim.width+'px;height:'+dim.height+'px;" src="static/thumbnails/' + img.filename + '"/>';
+    html += '<img style="width:'+dim.width+'px;height:'+dim.height+'px;" src="/static/thumbnails/' + img.filename + '"/>';
     html += '</div>';
     html += '</div>';
     return html;
 }
-function remove_all_carosel_entries(){
+function remove_all_carousel_entries(){
     flkty.remove(flkty.getCellElements());
 }
-//adds all the imag data to the garosel in the odersrc
-function add_carosel_entries(imgs){
+//adds all the image data to the carousel
+function add_carousel_entries(imgs){
     var carousel_html = "";
     imgs.forEach(function(img){
-        var $cellElems = $(get_carosel_html(img));
+        var $cellElems = $(get_carousel_html(img));
         flkty.append($cellElems);
     });
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////
 //brings up popup associated with feature ip
 function ip_clicked(db_id) {
-    //sends a request to the server tp return the information associated with the
+    //sends a request to the server to return the information associated with the
     // database feature id
     $.post(
         "/map/post",
@@ -48,23 +48,26 @@ function ip_clicked(db_id) {
             imgs = data.images;
             var ip_descrip = data.description;
             var ip_title = data.title;
+            if (data.images.length != 0){
+                //renders the popup
+                $('#popup').show();
 
-            //renders the popup
-            $('#popup').show();
+                remove_all_carousel_entries();
 
-            remove_all_carosel_entries();
+                add_carousel_entries(imgs);
 
-            add_carosel_entries(imgs);
+                $("#ip_description").text(ip_descrip);
+                $("#ip_title").text(ip_title);
 
-            $("#ip_description").text(ip_descrip);
-            $("#ip_title").text(ip_title);
-
-            // resize after un-hiding Flickity
-            flkty.resize();
-            flkty.reposition();
+                // resize after un-hiding Flickity
+                flkty.resize();
+                flkty.reposition();
+            }
         }
     );
 }
+//////////////////////////////////////////////////////////////////////////////////////////////
+
 function set_flickity_click(){
     /*
     Purpose:
@@ -84,6 +87,8 @@ function set_flickity_click(){
     var SECS_PER_MILSEC = 1000;
 
     var photoswipe_fetched = false;
+
+
     flkty.on( 'staticClick', function( event, pointer, cellElement, cellIndex ) {
         if (cellElement && !photoswipe_fetched) {
             photoswipe_fetched = true;
@@ -94,6 +99,7 @@ function set_flickity_click(){
         }
     });
 }
+
 
 function make_photoswipe(pic_index){
     // execute above function
@@ -121,9 +127,10 @@ function make_photoswipe(pic_index){
         //on android, "true" will cause this to close when you wouldn't want it to
         closeOnVerticalDrag:false,
         //I don't think drastically differnt interfaces between small and large pictures is a good idea.
-        clickToCloseNonZoomable: false
+        clickToCloseNonZoomable: false,
         //if image loading is too slow try this. It makes switching between images even slower though.
         //preloaderEl: false,
+        escKey: false
     };
 
     gallery = new PhotoSwipe(element, PhotoSwipeUI_Default, items, options);
@@ -188,3 +195,22 @@ function flickity_init(){
     set_flickity_click();
     set_popup_close_button();
 }
+
+
+
+
+$(document).keyup(function(e) {
+    if (e.keyCode==27) { //if ESC key is hit
+        $("#popup").hide();
+        if (gallery){
+            gallery.close();
+        }
+    }
+});
+
+$(document).mouseup(function(e){
+        var popup = $("#popup");
+        if (popup.is(e.target)){
+            $("#popup").hide();
+        }
+});
