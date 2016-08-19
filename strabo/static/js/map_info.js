@@ -51,7 +51,7 @@ function set_styles(all_layers_group){
     zones.forEach(function(zone){
         zone.setStyle({
               weight: 1,
-              color: straboconfig["COLOR_HEX"][zone.feature.properties.style], 
+              color: straboconfig["COLOR_HEX"][zone.feature.properties.style],
               dashArray: '',
               fillOpacity: 0.3
         });
