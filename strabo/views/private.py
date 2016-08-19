@@ -15,6 +15,7 @@ a row object with empty entries in it.
 5. Submission: interest_points_post.
 '''
 
+
 from flask import request, render_template, redirect, url_for
 
 from strabo import geojson_wrapper
@@ -31,7 +32,6 @@ from strabo import straboconfig
 def index():
   return render_template("private/base.html",**straboconfig)
 
-
 ###
 ###
 ### Views for login page
@@ -40,7 +40,6 @@ def index():
 @app.route("/login/", methods=["GET"])
 def login():
     return render_template("/public/login.html",**straboconfig)
-
 
 ###
 ###
@@ -82,7 +81,7 @@ def show_ips_upload_form(interest_point):
     and processes it so that the upload_ips page renders the form
     '''
     #Gets all interest points, so that they can be displayed on the leaflet map.
-    all_ips = db.session.query(schema.InterestPoints).all()
+    all_ips = db.session.query(schema.InterestPoints).filter(schema.InterestPoints.id != interest_point.id).all()
     geo_features = [geojson_wrapper.make_other_attributes_properties(ip) for ip in all_ips]
     #gets the geojson object corrsponding to the current interest point so that
     #the html form contains a default values for the geojson
@@ -90,7 +89,7 @@ def show_ips_upload_form(interest_point):
 
     #gets images that the current interest point already owns
     ip_images = private_helper.get_ordered_images(interest_point)
-    jsonifiable_ip_images = [utils.concatenate_dicts(database.jsonifyable_row(img),{'month':img.taken_at.month,'year':img.taken_at.year}) for img in ip_images]
+    jsonifiable_ip_images = [utils.concatenate_dicts(database.jsonifiable_row(img),{'month':img.taken_at.month,'year':img.taken_at.year}) for img in ip_images]
 
     return render_template("private/upload_ips.html",
         geo_features=geo_features,

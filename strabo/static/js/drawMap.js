@@ -62,8 +62,13 @@ function set_draw_controls(drawMap,drawnItems){
           }
         }
     });
+    if(edit_json){
+        drawMap.addControl(editControl);
+    }
+    else{
+        drawMap.addControl(addControl);
+    }
 
-    drawMap.addControl(addControl);
 
     drawMap.on('draw:created', function (e) { //grab s layer of drawn item
         shapeLayer = e.layer;
@@ -91,6 +96,8 @@ function init_geojson_setter(drawnItems){
     if (edit_json){
         shape_drawn = true;
         shapeLayer = L.geoJson(edit_json).getLayers()[0];
+        shapeLayer.addTo(drawnItems);
+        shapeLayer.bindPopup("You are editing this point.").openPopup()
     }
     $('#upload-btn').click(function (e) {
         var JSONobject = shape_drawn ? JSON.stringify(shapeLayer.toGeoJSON()) : "";
