@@ -4,11 +4,20 @@ from strabo import utils
 def get_config_info():
     config_info = dict()
 
+    #
+    #
+    #
     ###### The following variables require configuration.
     # set the latitude and longitude for the center of the map
     config_info['LAT_SETTING'] = 45.481851
     config_info['LONG_SETTING'] = -122.630397
     config_info['INITIAL_ZOOM'] = 17   #zoom if you are out of the canyon and in admin interface
+
+    # set the northwest and southeast bounds for the map with a lat-long pair
+    config_info['NW_LAT_BOUND'] = 45.486931
+    config_info['NW_LONG_BOUND'] = -122.650072
+    config_info['SE_LAT_BOUND'] = 45.463194
+    config_info['SE_LONG_BOUND'] = -122.609972
 
     '''you can change the names of these, but do not change the numbers!
     If any items with the changed number are stored in the database strabo will break.'''

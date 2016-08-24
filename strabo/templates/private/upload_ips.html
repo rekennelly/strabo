@@ -53,7 +53,6 @@
             <label for="layer">Layer:</label><br>
             <select class="form-control" name="layer">
                 <option>Select One</option>
-                
                 {% for layer_num,layer_name in LAYER_FIELDS.items() %}
                 <option {%if layer_num == interest_point.layer%}selected{%endif%}>{{layer_name}}</option>
                 {% endfor %}
@@ -64,7 +63,7 @@
           <div class="form-group">
              <!-- to make this look better, use bootstrap-select library. -->
             <label for="style"> Style:</label><br>
-            <select class="form-control style-menu" name="style">
+            <select class="form-control style-menu" name="style" id="icon-sel">
                 <option>Select One</option>
                 {% for color in COLOR_REP %}
                     <option {%if color == interest_point.style%}selected{%endif%}>

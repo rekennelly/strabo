@@ -38,12 +38,18 @@ function add_tile_to(map){
 function make_all_layers_group(interest_point_geojson_list){
     return L.geoJson(interest_point_geojson_list)
 }
+function is_point(layer){
+    return layer.feature.geometry.type == "Point"
+}
+function is_zone(layer){
+    return layer.feature.geometry.type == "Polygon"
+}
 // sets icon object for points and styling for zones
 function set_styles(all_layers_group){
     var all_layers = all_layers_group.getLayers();
 
-    var points = all_layers.filter(function(lay){return lay.feature.geometry.type == "Point"});
-    var zones = all_layers.filter(function(lay){return lay.feature.geometry.type == "Polygon"});
+    var points = all_layers.filter(is_point);
+    var zones = all_layers.filter(is_zone);
 
     zones.forEach(function(zone){
         zone.setStyle({
