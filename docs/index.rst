@@ -9,6 +9,8 @@ Welcome to Strabo Canyon Map's documentation!
 
 Here you will find documentation for the public and private ends of the Reed Canyon Map project.
 
+The documentation is set up with installation instructions and a guide to configuration, followed by a section on general concepts, a document of potential issues in strabo, and a primer to working with Sphinx (the Python documentation engine used to generate these files). Following these topical guides are detailed references to specific modules in the code. 
+
 .. note::
     ** *This is a work in progress.* **
 
@@ -22,19 +24,18 @@ Table of Contents
 
     installation
     install_help
-    setup
     config_guide
-    sphinx_markup
-    editing_workflow
+
     concepts
     config
+    sphinx_markup
+
     initDB
     runserver
     add_database
     strabo
     strabo.views
     javascript
-
 
 
 
