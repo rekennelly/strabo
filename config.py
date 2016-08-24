@@ -157,7 +157,7 @@ def get_config_info():
 def config_app(app):
     '''
     Flask and sqlachemy specific configurations. These are kept seperate
-    becuase unlike the others, they will change between development and deployment.
+    because unlike the others, they will change between development and deployment.
     '''
     app.config['SQLALCHEMY_DATABASE_URI']  = "postgres://localhost/strabo"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS']  = False

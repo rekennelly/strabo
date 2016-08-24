@@ -30,11 +30,12 @@ Table of Contents
     config_guide
 
     concepts
-    config
+    potential_issues
     sphinx_markup
 
     initDB
     runserver
+    config
     add_database
     strabo
     strabo.views

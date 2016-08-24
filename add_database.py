@@ -1,7 +1,7 @@
 '''
 This file can be used to test strabo.
 
-To use it, run add_database.py after the database has been initialized (initDB.py).
+To use it, run add_database.py after the database has been initialized.
 
 It adds several mock interest points and images to the database, so you can see whether features 
 on the map are working.

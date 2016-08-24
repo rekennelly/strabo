@@ -1,12 +1,12 @@
-"""
-This file contains utilities.
-"""
+'''
+This file contains utilities. ***clarification needed*** used where
+'''
 
 import os
 
 def safe_pos_int_conv(inputstr):
-    '''helps forms submission be robust by returning 1 when empty string is passed
-    in instead of a number '''
+    ''' Helps forms submission be robust by returning 1 when empty string is passed
+    in instead of a number ***clarification needed*** '''
     return  int(inputstr) if not inputstr == '' else 1
 
 def get_extension(filename):
