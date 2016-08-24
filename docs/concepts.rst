@@ -1,5 +1,5 @@
-Concepts
-========
+General Concepts
+================
 
 Descriptions of implementation concepts which span several files.
 
@@ -52,3 +52,9 @@ is assigned to a javascript variable in a jinja template (map.html and upload_ip
 
 Now, this list of geojson objects is converted into a Leaflet FeatureGroup,
 which many functions interact with to display the interest points.
+
+Authentication and Authorization
+--------------------------------
+
+Authentication and authorization for strabo was set up with the help of Reed's Computiner & Information Services (CIS) department. Access to the private end of strabo (the /admin web pages) require a Kerberos login and password. Only specific users can access the admin pages. Adding users to the list involves contacting CIS or adding username/password pairs to the remote server using an ssh key. 
+

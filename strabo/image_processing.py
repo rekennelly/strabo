@@ -35,5 +35,5 @@ def save_shrunken_image(image_path,thumbnail_path,max_dim):
 
 def get_dimensions(filename):
     '''Get dimentions of image with ``filename`` in ``static/uploads/`` folder.'''
-    with Image.open(os.path.join(straboconfig['UPLOAD_FOLDER'],filename)) as im:
+    with Image.open(os.path.join(straboconfig['UPLOAD_DIR'],filename)) as im:
         return im.size#width, height tuple
