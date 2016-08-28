@@ -11,8 +11,8 @@ The config variables are stored in a dictionary ``config_info.`` ***WHY*** This 
 
 
 LAYER_FIELDS and REVERSE_LAYER_FIELDS
-COLOR_ICON, COLOR_HEX, COLOR_REP, REVERSE_COLOR_REP
 
+Colors for map markers are identified in several dictionary formats. Interest point icon colors match to icon file names. Interest zone colors match to hex codes. The dropdown menu on the admin uses color names in COLOR_REP which match to icons for points and hex codes for zones. Finally, colors are stored in the database as a reversed dictionary.
 
 config_app()
 ------------

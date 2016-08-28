@@ -16,12 +16,13 @@ def get_extension(filename):
         ext = ext[1:]
     return ext
 
-def fill_dict_with(_to,_from):
+def fill_dict_with(_to,_from): 
+    # ***clarification needed*** so, this looks like it is only used in add_database.py.....
     for k,v in _from.items():
         _to[k] = v
 
 def reverse_dict(forward_dict):
-    '''makes keys values and values keys'''
+    ''' Makes keys values and values keys.'''
     return {v:k for k,v in forward_dict.items()}
 
 def concatenate_dicts(d1,d2):

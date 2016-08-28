@@ -1,5 +1,5 @@
 '''
-This file deals with IMAGES: file naming, paths, saving, and deleting.
+This file deals with images: paths, file naming, saving, and deleting.
 '''
 
 import werkzeug
@@ -22,7 +22,7 @@ def get_thumbnail_path(filename):
     return os.path.join(straboconfig['THUMB_DIR'], filename)
 
 def make_unique_filename(path,filename):
-    ''' generates a filename with the given properties:
+    ''' Generates a filename with the given properties:
 
     #. The new filename does not exist yet in the folder specified by ``path``. ***clarification needed***
     #. The filename has the same file extension as the ``filename`` argument.
@@ -63,14 +63,14 @@ def save_shrunken_images_with(filename):
 # Saves image and thumbnail using the given filename
 def save_image_files(form_file,filename):
     '''
-    Checks saves ``form_file`` ***clarification needed*** what does checks saves form_file mean. why do you call it
-    form_file as opposed to file_extx
+    Checks saves ``form_file`` ***clarification needed*** (what does checks saves form_file mean. why do you call it
+    form_file as opposed to file_ext)
     under ``uploads/<filename>``.
 
     Throws an error if form_file is of not an allowed file extension.
     Ideally, this possibility would be not be allowed through form validation.
     '''
-    #if no files is attached, then do nothing
+    #if no file is attached, then do nothing
     if not form_file:
         return
     #if the file extension is not allowed,throw an error

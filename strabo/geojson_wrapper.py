@@ -1,6 +1,7 @@
+''' This file is used where ***clarification needed*** ''' 
+
 import geojson
 
-''' This file is used where ***clarification needed*** ''' 
 def to_geo_obj(geo_json):
     ''' Takes data and turns it into a geoJSON object. '''
     return geojson.loads(geo_json)

@@ -1,6 +1,15 @@
 import os
 from strabo import utils
 
+def config_app(app):
+    '''
+    Flask and sqlachemy specific configurations. These are kept seperate
+    because unlike the others, they will change between development and deployment.
+    '''
+    app.config['SQLALCHEMY_DATABASE_URI']  = "postgres://localhost/strabo"
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS']  = False
+    app.config['DEBUG']  = True
+
 def get_config_info():
     config_info = dict()
 
@@ -23,8 +32,6 @@ def get_config_info():
     config_info['INITIAL_ZOOM'] = 17   # Zoom if you are out of the canyon and in admin interface.
 
 
-
-
     ###### Map layers are identified by number. 
 
     '''you can change the names of these, but do not change the numbers!
@@ -37,11 +44,6 @@ def get_config_info():
         4:"Sensitive Areas"
     }
     config_info['REVERSE_LAYER_FIELDS'] = utils.reverse_dict(config_info['LAYER_FIELDS'])
-
-    ###### Colors for map markers are identified in several dictionary formats. Interest point icon colors match to icon file names.   
-    ###### Interest zone colors match to hex codes. The dropdown menu on the admin uses color names in COLOR_REP which
-    ###### match to icons for points and hex codes for zones. Finally, colors are stored in the database as a reversed
-    ###### dictionary.
     
     ###### Color icon files names for interest points.
     config_info['COLOR_ICON'] = {
@@ -145,7 +147,7 @@ def get_config_info():
 
 
 
-# ***Clarification needed***
+# ***Clarification needed*** What do you mean by "needs to correspond with popup view size"
     #needs to correspond with popup view size
     config_info["THUMBNAIL_MAX_SIZE"] = (500,500)#max_width, max_height
     #larger images will make for slower animations and upload when navigating photoswipe
@@ -154,11 +156,3 @@ def get_config_info():
     return config_info
 
 
-def config_app(app):
-    '''
-    Flask and sqlachemy specific configurations. These are kept seperate
-    because unlike the others, they will change between development and deployment.
-    '''
-    app.config['SQLALCHEMY_DATABASE_URI']  = "postgres://localhost/strabo"
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS']  = False
-    app.config['DEBUG']  = True
