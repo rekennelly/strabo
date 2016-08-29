@@ -22,7 +22,6 @@ var iconObjs = function(){
             icon_file = straboconfig["COLOR_ICON"][icon_name];
             icon_objs[icon_name] = new ColorIcon({iconUrl:'/static/map_icons/' + icon_file});
         }
-    //console.log(icon_objs)
     return icon_objs;
 
 }();
@@ -38,6 +37,7 @@ function add_tile_to(map){
 function make_all_layers_group(interest_point_geojson_list){
     return L.geoJson(interest_point_geojson_list)
 }
+
 // sets icon object for points and styling for zones
 function set_styles(all_layers_group){
     var all_layers = all_layers_group.getLayers();
@@ -73,7 +73,7 @@ function place_overlays_on(all_layers_group,map){
     L.control.layers(null, overlays).addTo(map);
 }
 
-// Popups with the name of the interest point appear when clicked
+// Popups with the interest point name appear when clicked
 function bind_popups(all_layers_group){
     var all_layers = all_layers_group.getLayers();
 
