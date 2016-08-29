@@ -33,8 +33,8 @@ function set_geolocation(map){
     // NOTE: GETS REAL WEIRD AND JUMPY IN SAFARI
     // However, works fine in Google Chrome
 
-    var northWest = L.latLng(45.48469, -122.63892);
-    var southEast = L.latLng(45.47897, -122.62268);
+    var northWest = L.latLng(straboconfig["NW_LAT_BOUND"], straboconfig["NW_LONG_BOUND"]);
+    var southEast = L.latLng(straboconfig["SE_LAT_BOUND"], straboconfig["SE_LONG_BOUND"]);
     var bounds = L.latLngBounds(northWest, southEast);
 
     map.setMaxBounds(bounds);

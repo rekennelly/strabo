@@ -27,7 +27,7 @@
                             <button type="submit" name="edit-btn" value={{ ip.id }}>Edit</button>
                         </td>
                         <td>
-                            <button type="submit" name="delete-btn" value={{ ip.id }}>Delete</button>
+                            <button onclick="return confirm('Are you sure you want to delete this?')" type="submit" name="delete-btn" value={{ ip.id }}>Delete</button>
                         </td>
                         <td>{{ ip.title }}</td>
                         <td id="description">{{ ip.descrip_body }} </td>
