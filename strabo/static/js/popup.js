@@ -76,7 +76,7 @@ function ip_clicked(db_id) {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
 
-function set_flickity_click(){ 
+function set_flickity_click(){
     /*
     Purpose:
     When Flickity cell is clicked, a photoswipe gallery is pulled up displaying a larger version of the same image.
@@ -123,7 +123,7 @@ function make_photoswipe(pic_index){
         at http://photoswipe.com/documentation/responsive-images.html */
         mobile_dim = get_shrunk_dim(img,straboconfig['MOBILE_SERV_MAX_SIZE'])
         items.push({
-            src:straboconfig['MOBILE_IM_DIR_RELPATH'] + img.filename,
+            src:straboconfig['MOBILE_IMG_DIR_RELPATH'] + img.filename,
             w:mobile_dim.width,
             h:mobile_dim.height
         });
