@@ -2,6 +2,8 @@
 This is the README for *Strabo*, a database-backed website for
 making an interactive map incorporating text and images. 
 
+Developed by: Rachel Kennelly, Ava Kamb, and Ben Black for the Reed College Software Design Studio
+
 Last Updated: August 1, 2016
 
 #
